@@ -20,7 +20,7 @@ function TrabajosUser() {
       const token = getToken();
       if (!token) return;
 
-      const response = await axios.get("http://localhost:8085/api-user/historial-solicitud", {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api-user/historial-solicitud`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTrabajos(response.data);
@@ -36,7 +36,7 @@ function TrabajosUser() {
       if (!token) return;
 
       const response = await axios.get(
-        `http://localhost:8085/api-user/filtrar-trabajos`,
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/filtrar-trabajos`,
         {
           params: { fechaInicio, fechaFin },
           headers: { Authorization: `Bearer ${token}` },

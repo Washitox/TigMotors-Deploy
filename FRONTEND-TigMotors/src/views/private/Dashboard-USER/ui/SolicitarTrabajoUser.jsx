@@ -28,7 +28,7 @@ function SolicitarTrabajoUser() {
       const token = getToken();
       if (!token) return;
       const response = await axios.get(
-        "http://localhost:8085/api-user/listar-solicitudes",
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/listar-solicitudes`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -44,7 +44,7 @@ function SolicitarTrabajoUser() {
       const token = getToken();
       if (!token) return;
       const response = await axios.get(
-        `http://localhost:8085/api-user/filtrar-solicitudes`,
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/filtrar-solicitudes`,
         {
           params: { estado: estadoFiltro },
           headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +73,7 @@ function SolicitarTrabajoUser() {
       }
 
       await axios.post(
-        "http://localhost:8085/api-user/crear-solicitud",
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/crear-solicitud`,
         requestData,
         {
           headers: {

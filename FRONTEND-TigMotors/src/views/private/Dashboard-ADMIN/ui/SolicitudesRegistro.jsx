@@ -19,7 +19,7 @@ export default function SolicitudesRegistro() {
       setIsFetching(true);
       const token = getToken();
       const response = await axios.get(
-        "http://localhost:8085/api/admin/users/pending",
+        `${import.meta.env.VITE_BACKEND_URL}/admin/users/pending`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -36,7 +36,7 @@ export default function SolicitudesRegistro() {
     try {
       const token = getToken();
       const response = await axios.post(
-        "http://localhost:8085/api/admin/buscar-usuario",
+        `${import.meta.env.VITE_BACKEND_URL}/admin/buscar-usuario`,
         { id },
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -69,7 +69,7 @@ export default function SolicitudesRegistro() {
     try {
       const token = getToken();
       await axios.put(
-        `http://localhost:8085/api/admin/users/approve/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/admin/users/approve/${id}`,
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -90,7 +90,7 @@ export default function SolicitudesRegistro() {
     try {
       const token = getToken();
       await axios.post(
-        "http://localhost:8085/api/admin/users/delete",
+        `${import.meta.env.VITE_BACKEND_URL}/admin/users/delete`,
         { userId: id },
         { headers: { Authorization: `Bearer ${token}` } }
       );

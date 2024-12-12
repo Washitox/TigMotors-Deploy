@@ -15,7 +15,7 @@ function RegistrarTrabajo() {
   useEffect(() => {
     const fetchUsernames = async () => {
       try {
-        const response = await axios.get("http://localhost:8085/api/admin/lista-usuarios");
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/lista-usuarios`);
         setUsernames(response.data.map(user => user.username));
       } catch (error) {
         console.error("Error fetching usernames:", error);
@@ -37,7 +37,7 @@ function RegistrarTrabajo() {
     };
 
     try {
-      await axios.post("http://localhost:8085/api/admin/crear-solicitud", newRequest);
+      await axios.post(`${import.meta.env.VITE_BACKEND_URL}/admin/crear-solicitud`, newRequest);
       alert("Solicitud enviada con éxito");
       // Clear form after submission
       setSelectedUser("");

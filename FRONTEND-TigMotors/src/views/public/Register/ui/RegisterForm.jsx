@@ -30,7 +30,7 @@ export default function RegisterForm() {
 
     try {
       const response = await axios.post(
-        'http://localhost:8085/api/v1/register-user',
+        'https://tigmotors-uio.up.railway.app/api/admin/registrar-usuario',
         formattedData,
         {
           headers: {

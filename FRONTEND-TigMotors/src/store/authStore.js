@@ -12,7 +12,7 @@ const useAuthStore = create((set) =>({
     //peticiones del login
     login: async (data, navigate) => {
         try{
-            const responde = await axios.post("http://localhost:8085/user/login", data)
+            const responde = await axios.post("https://tigmotors-uio.up.railway.app/api/v1/login-global/login", data)
             console.log(response.data)
 
             //guardar variables de api
