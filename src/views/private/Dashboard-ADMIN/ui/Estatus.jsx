@@ -17,7 +17,7 @@ export default function Estatus() {
 
     try {
       const token = getToken();
-      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/admin/users/status`, {
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/estadisticas-usuarios`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
