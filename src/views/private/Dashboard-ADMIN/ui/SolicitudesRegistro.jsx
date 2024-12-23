@@ -29,7 +29,7 @@ export default function SolicitudesRegistro() {
       setSolicitudes(response.data);
     } catch (error) {
       console.error("Error al obtener solicitudes:", error);
-      setErrorMessage("Error al cargar las solicitudes.");
+      setErrorMessage("Error al cargar las solicitudes o no existen solicitudes");
     } finally {
       setIsFetching(false);
     }
