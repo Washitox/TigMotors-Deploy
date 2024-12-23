@@ -28,7 +28,7 @@ export default function AcercaNosotros() {
           {/* Contenido descriptivo */}
           <div className="flex flex-col justify-center">
             <p className="text-gray-300 mb-4 leading-relaxed">
-              Fundada con la misión de mejorar la calidad y precisión en cada reparación, TigMotors ha crecido para convertirse en un referente de confianza dentro del sector de la soldadura y rectificación de cabezotes o blocs. Nuestro equipo de expertos utiliza tecnología de punta y técnicas avanzadas para garantizar que cada trabajo supere las expectativas de nuestros clientes.
+              Fundada con la misión de mejorar la calidad y precisión en cada reparación, TigMotors ha crecido para convertirse en un referente de confianza dentro del sector de la soldadura y rectificación de cabezotes o blocks. Nuestro equipo de expertos utiliza tecnología de punta y técnicas avanzadas para garantizar que cada trabajo supere las expectativas de nuestros clientes.
             </p>
             <p className="text-gray-300 leading-relaxed">
               Ya sea que necesites una soldadura de alta precisión o un tratamiento completo para tus cabezotes, puedes confiar en nosotros. ¡Tu satisfacción es nuestra prioridad!

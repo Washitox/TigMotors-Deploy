@@ -55,7 +55,7 @@ export default function TrabajosTig() {
         "Colocación de Helicoides",
         "Colocación de Tintas",
         "Asesoría de sueldas",
-        "Lavado de Bloc o Cabezotes",
+        "Limpieza de Bloc o Cabezotes",
         "Servicio de transporte de piezas (Sector norte bajo – Amazonas hasta Carapungo)",
       ],
     },
