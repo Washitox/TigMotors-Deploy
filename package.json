@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
     "@react-google-maps/api": "^2.20.3",
@@ -29,6 +30,7 @@
     "react-router-dom": "^6.27.0",
     "react-scroll": "^1.9.0",
     "react-slick": "^0.30.2",
+    "serve": "^14.2.4",
     "slick-carousel": "^1.8.1",
     "zustand": "^5.0.1"
   },
