@@ -259,7 +259,7 @@ function EstadoPago() {
                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}
                 {successMessage && <p className="text-green-500">{successMessage}</p>}
             </div>
-            )}=
+            )}
                 <table className="w-full text-left">
                     <thead className="bg-gray-700 text-white">
                     <tr>
