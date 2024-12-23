@@ -16,7 +16,7 @@ function DashboardPersonalView() {
         {/* Contenedor principal */}
         <main className="p-6">
         <div className="bg-gray-800 p-6 rounded-lg">
-            <h1 className="text-2xl font-bold text-white">Bienvenido al panel del personal de servicios</h1>
+            <h1 className="text-2xl font-bold text-white">Panel del personal de servicios</h1>
             <p className="mt-4 text-white">
               El servicio del personal es el contacto de los usuarios con la página, trabajos y generar reportes.
             </p>

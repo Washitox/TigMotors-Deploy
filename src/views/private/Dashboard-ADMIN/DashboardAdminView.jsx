@@ -26,7 +26,7 @@ export default function DashboardAdminView() {
         <main className="p-6 overflow-y-auto">
 
         <div className="bg-gray-800 p-6 rounded-lg">
-            <h1 className="text-2xl font-bold">Bienvenido a tu panel de Administrador</h1>
+            <h1 className="text-2xl font-bold">Panel de Administrador</h1>
             <p className="mt-4">
               Aquí puedes gestionar todos los trabajos como registarlos y recibir solicitudes de trabajos. También con los usuarios puedes aprobarlos, eliminarlos o registrarlos. Para comenzar seleciona una de las opciones de la izquierda.
             </p>
