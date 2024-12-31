@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
+import EstatusTickets from "./Estatus_tickets";
 
 function PerfilPersonal() {
   const [staffInfo, setStaffInfo] = useState({
@@ -58,7 +59,7 @@ function PerfilPersonal() {
 
         {/* Contenido del perfil */}
         <main className="p-6">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-5xl mx-auto">
             <h1 className="text-3xl font-bold mb-6 text-center text-white">
               Información del Perfil
             </h1>
@@ -67,46 +68,41 @@ function PerfilPersonal() {
             ) : errorMessage ? (
               <p className="text-center text-red-500">{errorMessage}</p>
             ) : (
-              <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-medium text-gray-400">
-                    Nombre de Usuario
-                  </label>
-                  <p className="bg-gray-700 text-white p-3 rounded">
-                    {staffInfo.username || "No disponible"}
-                  </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Información básica del perfil */}
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md">
+                  <h2 className="text-lg font-bold mb-4 text-center">
+                    Información Básica
+                  </h2>
+                  <table className="table-fixed w-full text-sm text-gray-200">
+                    <tbody>
+                      <tr>
+                        <td className="p-2 font-bold w-1/3">Nombre:</td>
+                        <td className="p-5">{staffInfo.username || "No disponible"}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 font-bold w-1/3">Empresa:</td>
+                        <td className="p-5">{staffInfo.businessName || "No disponible"}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 font-bold w-1/3">Correo Electrónico:</td>
+                        <td className="p-5">{staffInfo.email || "No disponible"}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 font-bold w-1/3">Teléfono:</td>
+                        <td className="p-5">{staffInfo.phoneNumber || "No disponible"}</td>
+                      </tr>
+                      <tr>
+                        <td className="p-2 font-bold w-1/3">Rol:</td>
+                        <td className="p-5">{staffInfo.role || "No disponible"}</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-400">
-                    Empresa
-                  </label>
-                  <p className="bg-gray-700 text-white p-3 rounded">
-                    {staffInfo.businessName || "No disponible"}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-400">
-                    Correo Electrónico
-                  </label>
-                  <p className="bg-gray-700 text-white p-3 rounded">
-                    {staffInfo.email || "No disponible"}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-400">
-                    Teléfono
-                  </label>
-                  <p className="bg-gray-700 text-white p-3 rounded">
-                    {staffInfo.phoneNumber || "No disponible"}
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-400">
-                    Rol
-                  </label>
-                  <p className="bg-gray-700 text-white p-3 rounded">
-                    {staffInfo.role || "No disponible"}
-                  </p>
+
+                {/* Gráfica de Estado de Tickets */}
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md flex items-center justify-center">
+                  <EstatusTickets />
                 </div>
               </div>
             )}

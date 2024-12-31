@@ -1,6 +1,7 @@
 import React from "react";
 import SidebarPersonal from "./ui/SidebarPersonal";
 import HeaderPersonal from "./ui/HeaderPersonal";
+import EstatusTickets from "./ui/Estatus_tickets";
 
 function DashboardPersonalView() {
   return (
@@ -21,6 +22,13 @@ function DashboardPersonalView() {
               El servicio del personal es el contacto de los usuarios con la página, trabajos y generar reportes.
             </p>
           </div>
+          <div className="flex justify-center items-center gap-8">
+            {/* Gráfica 1 */}
+            <div className="flex-1 max-w-lg h-[400px] p-6 bg-gray-700 rounded-lg shadow-lg flex flex-col justify-between">
+              <EstatusTickets />
+            </div>
+          </div>
+
         </main>
       </div>
     </div>

@@ -9,6 +9,8 @@ import SolicitudesRegistro from "./ui/SolicitudesRegistro";
 import RegistrarTrabajo from "./ui/RegistrarTrabajo";
 import Perfil from "./ui/Perfil";
 import Estatus from "./ui/Estatus";
+import EstatusSolicitudes from "./ui/Estatus_solicitudes";
+import EstatusTickets from "./ui/Estatus_tickets";
 
 
 export default function DashboardAdminView() {
@@ -21,6 +23,7 @@ export default function DashboardAdminView() {
       <div className="flex flex-col flex-1">
         {/* Header */}
         <HeaderAdmin />
+        
 
         {/* Dynamic Content using Routes */}
         <main className="p-6 overflow-y-auto">
@@ -33,11 +36,28 @@ export default function DashboardAdminView() {
           </div>
           
 
-        {/* Contenedor de la gráfica */}
-        <div className="w-1/4 p-4 bg-gray-700 rounded-lg">
-          <h2 className="text-lg font-bold mb-4 text-center">Estatus de las Solicitudes</h2>
-          <Estatus />
-        </div>
+          <div className="flex justify-between items-stretch gap-8">
+            {/* Gráfica 1 */}
+            <div className="flex-1 h-[400px] p-6 bg-gray-700 rounded-lg shadow-lg flex flex-col justify-between">
+
+              <Estatus />
+            </div>
+
+            {/* Gráfica 2 */}
+            <div className="flex-1 h-[400px] p-6 bg-gray-700 rounded-lg shadow-lg flex flex-col justify-between">
+
+              <EstatusSolicitudes />
+            </div>
+
+            {/* Gráfica 3 */}
+            <div className="flex-1 h-[400px] p-6 bg-gray-700 rounded-lg shadow-lg flex flex-col justify-between">
+
+              <EstatusTickets />
+            </div>
+          </div>
+
+
+
 
           <Routes>
             {/* Wrapper for Topbar */}

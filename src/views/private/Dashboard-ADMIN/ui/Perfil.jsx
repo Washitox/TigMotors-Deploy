@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import Estatus from "./Estatus";
+import EstatusSolicitudes from "./Estatus_solicitudes";
+import EstatusTickets from "./Estatus_tickets";
 import axios from "axios";
 
 function Perfil() {
@@ -58,15 +60,15 @@ function Perfil() {
         <HeaderAdmin />
 
         {/* Contenido del perfil */}
-        <main className="p-6">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-4xl mx-auto">
-            <h1 className="text-3xl font-bold mb-6 text-center">
+        <main className="p-1">
+          <div className="bg-gray-800 p-3 rounded-lg shadow-lg w-full max-w-5xl h-auto mx-auto">
+            <h1 className="text-2xl font-bold mb-6 text-center">
               Perfil del Administrador
             </h1>
 
             {/* Mostrar mensajes de error o carga */}
             {isLoading ? (
-              <p className="text-center text-gray-400">
+              <p className="text-center text-gray-400 text-sm font-light leading-tight">
                 Cargando datos del perfil...
               </p>
             ) : errorMessage ? (
@@ -82,44 +84,51 @@ function Perfil() {
                     <tbody>
                       <tr>
                         <td className="p-2 font-bold w-1/3">Nombre:</td>
-                        <td className="p-2">
+                        <td className="p-5 truncate">
                           {profileData.username || "No disponible"}
                         </td>
                       </tr>
                       <tr>
                         <td className="p-2 font-bold w-1/3">Empresa:</td>
-                        <td className="p-2">
+                        <td className="p-5 truncate">
                           {profileData.businessName || "No disponible"}
                         </td>
                       </tr>
                       <tr>
                         <td className="p-2 font-bold w-1/3">Correo:</td>
-                        <td className="p-2">
+                        <td className="p-5 truncate">
                           {profileData.email || "No disponible"}
                         </td>
                       </tr>
                       <tr>
                         <td className="p-2 font-bold w-1/3">Teléfono:</td>
-                        <td className="p-2">
+                        <td className="p-5 truncate">
                           {profileData.phoneNumber || "No disponible"}
                         </td>
                       </tr>
                       <tr>
                         <td className="p-2 font-bold w-1/3">Rol:</td>
-                        <td className="p-2">{profileData.role || "No disponible"}</td>
+                        <td className="p-5 truncate">
+                          {profileData.role || "No disponible"}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
 
-                {/* Estadísticas de usuarios */}
-                <div className="bg-gray-700 p-4 rounded-lg shadow-md">
-                  <h2 className="text-lg font-bold mb-4 text-center">
-                    Estadísticas de Usuarios
-                  </h2>
-                  <div className="flex justify-center items-center h-full">
-                    <Estatus />
-                  </div>
+                {/* Gráfica de Estatus de Solicitudes */}
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md flex items-center justify-center">
+                  <EstatusSolicitudes />
+                </div>
+
+                {/* Gráfica de Estatus de Usuarios */}
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md flex items-center justify-center">
+                  <Estatus />
+                </div>
+
+                {/* Gráfica de Estatus de Tickets */}
+                <div className="bg-gray-700 p-4 rounded-lg shadow-md flex items-center justify-center">
+                  <EstatusTickets />
                 </div>
               </div>
             )}

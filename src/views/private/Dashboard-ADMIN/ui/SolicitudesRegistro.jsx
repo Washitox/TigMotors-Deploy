@@ -116,7 +116,7 @@ export default function SolicitudesRegistro() {
         <HeaderAdmin />
         <main className="p-6">
           <div className="flex flex-wrap justify-between mb-6">
-            <div className="w-1/4 p-4 bg-gray-700 rounded-lg" style={{ height: "350px" }}>
+            <div className="w-auto p-3 bg-gray-700 rounded-lg" style={{ height: "450px" }}>
               <h2 className="text-lg font-bold mb-4 text-center">
                 Estatus de las Solicitudes
               </h2>

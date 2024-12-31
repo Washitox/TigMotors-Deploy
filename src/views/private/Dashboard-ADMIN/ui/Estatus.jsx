@@ -71,8 +71,8 @@ export default function Estatus() {
   };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg mb-4">
-      <h2 className="text-xl font-bold text-white mb-4">Estatus de las Solicitudes</h2>
+    <div className="w-full h-96 bg-gray-800 p-8 rounded-xl shadow-xl">
+      <h2 className="text-center font-bold text-white mb-4">Usuarios</h2>
       {isFetching ? (
         <div className="text-center text-white">Cargando...</div>
       ) : (

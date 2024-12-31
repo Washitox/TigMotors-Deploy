@@ -15,7 +15,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 bg-gray-800 h-full flex flex-col rounded-r-lg">
+    <aside className="min-h-screen w-64 bg-gray-800 flex flex-col rounded-r-lg">
       <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white">TigMotors Admin</div>
       <nav className="flex-1">
         <ul className="space-y-2 p-4">
