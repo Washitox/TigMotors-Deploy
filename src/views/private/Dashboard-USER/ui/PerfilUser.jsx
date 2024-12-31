@@ -27,6 +27,10 @@ function PerfilUser() {
   const [successMessage, setSuccessMessage] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState(""); // Contraseña para eliminar cuenta
+  const [confirmDelete, setConfirmDelete] = useState(false); // Checkbox para confirmar
+
 
 
   const getToken = () => localStorage.getItem("authToken");
@@ -70,7 +74,7 @@ function PerfilUser() {
       const token = getToken();
       if (!token) {
         setErrorMessage("Sesión expirada. Por favor, inicia sesión nuevamente.");
-        setIsLoading(false); // Detiene el spinner
+        setIsLoading(false);
         return;
       }
   
@@ -86,12 +90,14 @@ function PerfilUser() {
       );
   
       setSuccessMessage("Contraseña cambiada exitosamente.");
+      setTimeout(() => setSuccessMessage(null), 3000);
       setPasswords({ currentPassword: "", newPassword: "", repeatNewPassword: "" });
     } catch (error) {
       console.error("Error al cambiar la contraseña:", error);
       setErrorMessage(
         error.response?.data?.message || "Error al cambiar la contraseña."
       );
+      setTimeout(() => setErrorMessage(null), 3000);
     } finally {
       setIsLoading(false); // Detiene el spinner
     }
@@ -112,6 +118,43 @@ function PerfilUser() {
       [field]: value,
     }));
   };
+
+
+  const handleDeleteAccount = async () => {
+    if (!deletePassword || !confirmDelete) {
+      setErrorMessage("Debe ingresar la contraseña y confirmar para eliminar.");
+      setTimeout(() => setSuccessMessage(null), 3000);
+      return;
+    }
+  
+    setErrorMessage(null);
+    setIsLoading(true);
+    try {
+      const token = getToken();
+      if (!token) {
+        setErrorMessage("Sesión expirada. Por favor, inicie sesión nuevamente.");
+        return;
+      }
+  
+      await axios.delete("http://localhost:8085/api/admin/eliminar-usuarios", {
+        headers: { Authorization: `Bearer ${token}` },
+        data: { password: deletePassword },
+      });
+  
+      setSuccessMessage("Cuenta eliminada exitosamente.");
+      setTimeout(() => setErrorMessage(null), 3000);
+      setShowDeleteModal(false);
+    } catch (error) {
+      console.error("Error al eliminar la cuenta:", error);
+      setErrorMessage(
+        error.response?.data?.message || "No se pudo eliminar la cuenta."
+      );
+      setTimeout(() => setErrorMessage(null), 3000);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  
 
   const handleSaveField = async () => {
     try {
@@ -136,6 +179,7 @@ function PerfilUser() {
       }
 
       setSuccessMessage("Información actualizada exitosamente.");
+      setTimeout(() => setErrorMessage(null), 3000);
       setEditableFields({});
       setIsEditing(false);
       fetchUserInfo();
@@ -144,6 +188,7 @@ function PerfilUser() {
       setErrorMessage(
         error.response?.data?.message || "Error al actualizar la información."
       );
+      setTimeout(() => setErrorMessage(null), 3000);
     }
   };
 
@@ -241,12 +286,70 @@ function PerfilUser() {
             {/* Opciones de acciones */}
             <div className="mt-6 space-y-4">
               <button
-                className="w-full py-2 px-4 bg-red-500 hover:bg-red-600 rounded-md text-white font-semibold"
+                className="w-full py-2 px-4 bg-yellow-400 hover:bg-yellow-400 rounded-md text-white font-semibold"
                 onClick={() => setShowChangePassword(!showChangePassword)}
               >
                 Cambiar Contraseña
               </button>
             </div>
+
+            <div className="mt-6">
+              <button
+                onClick={() => setShowDeleteModal(true)}
+                className="w-full py-2 px-4 bg-red-500 hover:bg-red-600 rounded-md text-white font-semibold"
+              >
+                Eliminar Cuenta
+              </button>
+            </div>
+
+            {showDeleteModal && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+              <div className="bg-gray-800 rounded-lg shadow-lg w-full max-w-md p-6">
+                <h2 className="text-xl font-bold text-center text-white mb-4">
+                  Eliminar Cuenta
+                </h2>
+                <p className="text-gray-400 text-center mb-4">
+                  Por favor, ingrese su contraseña para confirmar la eliminación de la cuenta.
+                </p>
+                <input
+                  type="password"
+                  value={deletePassword}
+                  onChange={(e) => setDeletePassword(e.target.value)}
+                  className="w-full bg-gray-700 text-white p-2 rounded border border-gray-600 mb-4"
+                  placeholder="Contraseña actual"
+                />
+                <div className="flex items-center mb-4">
+                  <input
+                    type="checkbox"
+                    checked={confirmDelete}
+                    onChange={() => setConfirmDelete(!confirmDelete)}
+                    className="mr-2"
+                  />
+                  <label className="text-gray-400">Confirmo que deseo eliminar mi cuenta.</label>
+                </div>
+                <button
+                  onClick={handleDeleteAccount}
+                  className="w-full py-2 px-4 bg-red-500 hover:bg-red-600 rounded text-white"
+                >
+                  Eliminar Cuenta
+                </button>
+                <button
+                  onClick={() => setShowDeleteModal(false)}
+                  className="w-full py-2 px-4 bg-gray-500 hover:bg-gray-600 rounded text-white mt-2"
+                >
+                  Cancelar
+                </button>
+                {errorMessage && (
+                  <p className="text-red-500 text-sm text-center mt-4">{errorMessage}</p>
+                )}
+                {successMessage && (
+                  <p className="text-green-500 text-sm text-center mt-4">{successMessage}</p>
+                )}
+              </div>
+            </div>
+          )}
+
+
 
             {/* Formulario de cambiar contraseña */}
             {showChangePassword && (
