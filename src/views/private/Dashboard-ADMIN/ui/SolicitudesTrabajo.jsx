@@ -115,6 +115,7 @@ function SolicitudesTrabajo() {
     } catch (error) {
       console.error("Error al guardar los datos:", error);
       setErrorMessage("Error al guardar los datos.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
 
@@ -137,6 +138,7 @@ function SolicitudesTrabajo() {
     } catch (error) {
       console.error("Error al rechazar la solicitud:", error);
       setErrorMessage("Error al rechazar la solicitud.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
 
@@ -158,6 +160,7 @@ function SolicitudesTrabajo() {
     } catch (error) {
       console.error("Error al eliminar la solicitud:", error);
       setErrorMessage("Error al eliminar la solicitud.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
 

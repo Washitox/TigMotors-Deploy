@@ -82,6 +82,7 @@ const SolicitarTrabajoUser = () => {
         text: error.response?.data?.message || "Error al crear la solicitud.",
         type: "error",
       });
+      setTimeout(() => setSuccessMessage(null), 3000);
     } finally {
       setIsLoading(false);
     }
@@ -116,6 +117,7 @@ const SolicitarTrabajoUser = () => {
         { headers: { Authorization: `Bearer ${getToken()}` } }
       );
       setMessage({ text: "Solicitud eliminada exitosamente.", type: "success" });
+      setTimeout(() => setSuccessMessage(null), 3000);
       fetchSolicitudes();
     } catch (error) {
       setMessage({
@@ -139,12 +141,14 @@ const SolicitarTrabajoUser = () => {
         text: response.data?.message || "Cotización aceptada exitosamente.",
         type: "success",
       });
+      setTimeout(() => setSuccessMessage(null), 3000);
       fetchSolicitudes();
     } catch (error) {
       setMessage({
         text: error.response?.data?.message || "Error al aceptar la cotización.",
         type: "error",
       });
+      setTimeout(() => setSuccessMessage(null), 3000);
     } finally {
       setIsLoading(false);
     }
@@ -162,12 +166,14 @@ const SolicitarTrabajoUser = () => {
         text: response.data?.message || "Cotización rechazada exitosamente.",
         type: "success",
       });
+      setTimeout(() => setSuccessMessage(null), 5000);
       fetchSolicitudes();
     } catch (error) {
       setMessage({
         text: error.response?.data?.message || "Error al rechazar la cotización.",
         type: "error",
       });
+      setTimeout(() => setSuccessMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }

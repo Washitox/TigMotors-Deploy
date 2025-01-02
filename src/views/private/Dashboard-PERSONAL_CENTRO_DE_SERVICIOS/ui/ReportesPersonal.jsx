@@ -133,6 +133,7 @@ function ReportesPersonal() {
       setErrorMessage(
         error.response?.data?.message || "No se pudo descargar el PDF."
       );
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
   
@@ -180,6 +181,7 @@ function ReportesPersonal() {
     } catch (error) {
       console.error("Error al obtener los nombres de usuario:", error);
       setErrorMessage("No se pudieron cargar los nombres de usuario.");
+      setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
   

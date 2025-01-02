@@ -82,6 +82,7 @@ function Usuarios() {
       setErrorMessage(
         error.response?.data?.message || "Error al eliminar el usuario. Intente nuevamente."
       );
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
   
@@ -131,10 +132,12 @@ function Usuarios() {
       });
   
       setSuccessMessage(`Usuario con ID ${id} actualizado correctamente.`);
+      setTimeout(() => setSuccessMessage(null), 3000);
       setErrorMessage(null); // Limpia mensajes de error
     } catch (error) {
       console.error("Error al actualizar el usuario:", error);
       setErrorMessage(error.response?.data?.message || "Error al actualizar el usuario.");
+      setTimeout(() => setSuccessMessage(null), 3000);
 
     // Extraer mensaje del backend si existe
     const backendMessage = error.response?.data?.message;
@@ -204,6 +207,7 @@ const fetchByIdOrName = async (searchValue) => {
     };
 
     console.log("Datos enviados para registrar usuario:", formattedData);
+    
 
     try {
       const token = getToken();
@@ -221,8 +225,10 @@ const fetchByIdOrName = async (searchValue) => {
       );
 
       console.log("Usuario registrado exitosamente:", response.data);
+      
 
       setSuccessMessage("Usuario registrado... recargue la página");
+      setTimeout(() => setSuccessMessage(null), 3000);
       fetchUsers();
     } catch (error) {
       console.error("Error al registrar usuario:", error);

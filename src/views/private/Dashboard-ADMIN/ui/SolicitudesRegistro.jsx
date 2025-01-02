@@ -92,9 +92,11 @@ export default function SolicitudesRegistro() {
         prev.filter((solicitud) => solicitud.id !== id)
       );
       setSuccessMessage("Usuario eliminado correctamente.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error) {
       console.error("Error al eliminar usuario:", error);
       setErrorMessage("Error al eliminar el usuario.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     } finally {
       setIsFetching(false);
     }

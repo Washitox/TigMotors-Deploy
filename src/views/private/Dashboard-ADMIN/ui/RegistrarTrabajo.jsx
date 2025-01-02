@@ -90,6 +90,7 @@ function RegistrarTrabajo() {
       );
 
       setSuccessMessage(response.data.message || "¡Trabajo registrado exitosamente!");
+      setTimeout(() => setSuccessMessage(null), 3000);
       setSelectedUser("");
       setInitialDescription("");
       setPriority("MEDIA");
@@ -100,6 +101,7 @@ function RegistrarTrabajo() {
       setErrorMessage(
         error.response?.data?.message || "Error al registrar el trabajo. Inténtalo de nuevo."
       );
+      setTimeout(() => setSuccessMessage(null), 3000);
     } finally {
       setIsLoading(false); // Ocultar el spinner después de la solicitud
     }

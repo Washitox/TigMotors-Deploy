@@ -67,6 +67,7 @@ function Trabajos() {
     } catch (error) {
       console.error("Error al filtrar tickets:", error);
       setErrorMessage("Error al aplicar los filtros. Inténtalo de nuevo.");
+      setTimeout(() => setSuccessMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }
@@ -94,6 +95,7 @@ function Trabajos() {
     } catch (error) {
       console.error("Error al cambiar el estado del ticket:", error);
       setErrorMessage("Error al cambiar el estado del ticket. Inténtalo de nuevo.");
+      setTimeout(() => setSuccessMessage(null), 5000);
     } finally {
       setIsLoading(false);
     }

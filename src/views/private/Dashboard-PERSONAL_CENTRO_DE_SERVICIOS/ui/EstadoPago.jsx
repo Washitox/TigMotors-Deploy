@@ -103,8 +103,10 @@ function EstadoPago() {
     } catch (error) {
       console.error(`Error al actualizar el pago de la factura ${facturaId}:`, error);
       setErrorMessage(`No se pudo actualizar el pago de la factura ${facturaId}.`);
+      setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -142,6 +144,7 @@ function EstadoPago() {
     } catch (error) {
       console.error("Error al obtener los nombres de usuario:", error);
       setErrorMessage("No se pudieron cargar los nombres de usuario.");
+      setTimeout(() => setSuccessMessage(null), 3000);
     }
   };
   
