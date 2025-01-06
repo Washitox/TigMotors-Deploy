@@ -5,6 +5,8 @@ import Estatus from "./Estatus";
 import EstatusSolicitudes from "./Estatus_solicitudes";
 import EstatusTickets from "./Estatus_tickets";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
+
 
 function Perfil() {
   const [profileData, setProfileData] = useState({
@@ -16,6 +18,10 @@ function Perfil() {
   });
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -50,9 +56,10 @@ function Perfil() {
   }, []);
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex min-h-screen bg-gray-900 text-white">
       {/* Sidebar */}
-      <Sidebar />
+      {!isMobile && <Sidebar />}
+
 
       {/* Contenido principal */}
       <div className="flex-1 flex flex-col">
@@ -62,9 +69,14 @@ function Perfil() {
         {/* Contenido del perfil */}
         <main className="p-1">
           <div className="bg-gray-800 p-3 rounded-lg shadow-lg w-full max-w-5xl h-auto mx-auto">
-            <h1 className="text-2xl font-bold mb-6 text-center">
-              Perfil del Administrador
-            </h1>
+              <h1 className="text-2xl font-bold mb-6 text-center">
+                {isMobile
+                  ? "Perfil - Móvil"
+                  : isTablet
+                  ? "Perfil - Tablet"
+                  : "Perfil del Administrador"}
+              </h1>
+
 
             {/* Mostrar mensajes de error o carga */}
             {isLoading ? (

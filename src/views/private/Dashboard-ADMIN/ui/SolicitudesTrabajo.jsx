@@ -186,7 +186,7 @@ function SolicitudesTrabajo() {
 
   return (
     <div className="flex h-screen bg-gray-900 text-white">
-      <div className="flex h-screen bg-gray-900 text-white">
+      <div className="flex min-h-screen bg-gray-900 text-white">
         <Sidebar />
       </div>
 

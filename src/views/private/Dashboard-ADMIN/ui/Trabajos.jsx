@@ -117,7 +117,7 @@ function Trabajos() {
   const totalPages = Math.ceil(filteredTickets.length / rowsPerPage);
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex min-h-screen bg-gray-900 text-white">
       <Sidebar />
 
       <div className="flex-1 flex flex-col">
