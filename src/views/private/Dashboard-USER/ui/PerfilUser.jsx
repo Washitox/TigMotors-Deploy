@@ -4,6 +4,8 @@ import SidebarUser from "./SidebarUser";
 import axios from "axios";
 import { FaEye, FaEyeSlash, FaPencilAlt } from "react-icons/fa";
 import { Spinner } from 'keep-react';
+import { useNavigate } from "react-router-dom";
+
 function PerfilUser() {
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -30,6 +32,7 @@ function PerfilUser() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState(""); // Contraseña para eliminar cuenta
   const [confirmDelete, setConfirmDelete] = useState(false); // Checkbox para confirmar
+  const navigate = useNavigate();
 
 
 
@@ -136,22 +139,39 @@ function PerfilUser() {
         return;
       }
   
-      await axios.delete("http://localhost:8085/api/admin/eliminar-usuarios", {
-        headers: { Authorization: `Bearer ${token}` },
-        data: { password: deletePassword },
-      });
+      setIsLoading(true); // Activa el estado de carga
   
-      setSuccessMessage("Cuenta eliminada exitosamente.");
-      setTimeout(() => setErrorMessage(null), 3000);
-      setShowDeleteModal(false);
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/eliminar-cuenta`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          data: { password: deletePassword },
+        }
+      );
+  
+      if (response.status === 200) {
+        setSuccessMessage("Cuenta eliminada exitosamente.");
+        setShowDeleteModal(false);
+  
+        // Espera 3 segundos antes de redirigir al usuario
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
+      } else {
+        throw new Error("Error desconocido al eliminar la cuenta.");
+      }
     } catch (error) {
       console.error("Error al eliminar la cuenta:", error);
+  
+      // Muestra un mensaje de error personalizado si el servidor devuelve un error
       setErrorMessage(
         error.response?.data?.message || "No se pudo eliminar la cuenta."
       );
-      setTimeout(() => setErrorMessage(null), 3000);
     } finally {
-      setIsLoading(false);
+      // Desactiva el estado de carga al finalizar
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
     }
   };
   
