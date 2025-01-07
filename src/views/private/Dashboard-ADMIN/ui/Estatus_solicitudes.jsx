@@ -1,3 +1,15 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { Doughnut } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from "chart.js";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
+
 export default function EstatusSolicitudes() {
   const [statusData, setStatusData] = useState({ ACEPTADO: 0, PENDIENTE: 0 });
   const [isLoading, setIsLoading] = useState(true);
