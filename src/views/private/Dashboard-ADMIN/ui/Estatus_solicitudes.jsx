@@ -1,15 +1,3 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { Doughnut } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
-
-ChartJS.register(ArcElement, Tooltip, Legend);
-
 export default function EstatusSolicitudes() {
   const [statusData, setStatusData] = useState({ ACEPTADO: 0, PENDIENTE: 0 });
   const [isLoading, setIsLoading] = useState(true);
@@ -58,6 +46,7 @@ export default function EstatusSolicitudes() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Importante para manejar el tamaño dinámico
     plugins: {
       legend: {
         position: "bottom",
@@ -77,14 +66,14 @@ export default function EstatusSolicitudes() {
   };
 
   return (
-    <div className="w-full h-96 bg-gray-800 p-8 rounded-xl shadow-xl">
+    <div className="w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto bg-gray-800 p-4 md:p-6 rounded-xl shadow-xl">
       <h2 className="text-lg font-bold text-center text-white mb-4">
         Estado de las Solicitudes
       </h2>
       {isLoading ? (
         <p className="text-center text-white">Cargando datos...</p>
       ) : (
-        <div className="h-60">
+        <div className="relative h-56 md:h-72 lg:h-80">
           <Doughnut data={chartData} options={options} />
         </div>
       )}
