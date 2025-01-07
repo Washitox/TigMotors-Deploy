@@ -12,7 +12,7 @@ export default function SidebarUser() {
   ];
 
   return (
-    <aside className="w-64 bg-gray-800 min-h-full flex flex-col">
+    <aside className="flex min-h-full w-64 bg-gray-800   flex-col">
       <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white">TigMotors User</div>
       <nav className="flex-1">
         <ul className="space-y-2 p-4">
