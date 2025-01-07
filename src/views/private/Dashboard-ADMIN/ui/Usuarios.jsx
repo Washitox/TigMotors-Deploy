@@ -7,6 +7,7 @@ import { FaEye, FaEyeSlash, FaPencilAlt, FaSave } from "react-icons/fa";
 import axios from "axios";
 import _ from "lodash";
 import { useMediaQuery } from "react-responsive";
+import SoloDesktop from "./../../SoloDesktop";
 
 function Usuarios() {
   const {
@@ -266,6 +267,8 @@ const fetchByIdOrName = async (searchValue) => {
   );
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900 text-white">
       {/* Sidebar para la navegación */}
       {!isMobile && <Sidebar />}
@@ -555,6 +558,10 @@ const fetchByIdOrName = async (searchValue) => {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

@@ -3,6 +3,8 @@ import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
 import EstatusTickets from "./Estatus_tickets";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function PerfilPersonal() {
   const [staffInfo, setStaffInfo] = useState({
@@ -14,6 +16,7 @@ function PerfilPersonal() {
   });
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -48,6 +51,8 @@ function PerfilPersonal() {
   }, []);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex h-screen bg-gray-900 text-white">
       {/* Sidebar */}
       <SidebarPersonal />
@@ -110,6 +115,10 @@ function PerfilPersonal() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

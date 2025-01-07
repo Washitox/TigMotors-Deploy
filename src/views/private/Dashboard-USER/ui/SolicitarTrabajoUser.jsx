@@ -10,6 +10,9 @@ import {
 import SidebarUser from "./SidebarUser";
 import HeaderUsuario from "./HeaderUsuario";
 import axios from "axios";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
+
 
 const SolicitarTrabajoUser = () => {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -24,6 +27,8 @@ const SolicitarTrabajoUser = () => {
   const [prioridad, setPrioridad] = useState("ALTA");
   const [message, setMessage] = useState({ text: "", type: "" });
   const [isLoading, setIsLoading] = useState(false);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -187,6 +192,8 @@ const SolicitarTrabajoUser = () => {
   const totalPages = Math.ceil(filteredSolicitudes.length / itemsPerPage);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900 text-white">
       <SidebarUser />
       <div className="flex-1 flex flex-col">
@@ -378,6 +385,10 @@ const SolicitarTrabajoUser = () => {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 };
 

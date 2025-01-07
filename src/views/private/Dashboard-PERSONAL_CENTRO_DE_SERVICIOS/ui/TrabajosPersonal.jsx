@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function TrabajosPersonal() {
   const [tickets, setTickets] = useState([]);
@@ -17,6 +19,7 @@ function TrabajosPersonal() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
   
   const handleItemsPerPageChange = (e) => {
     setItemsPerPage(Number(e.target.value)); // Cambiar la cantidad de elementos por página
@@ -119,6 +122,8 @@ function TrabajosPersonal() {
   
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
       <SidebarPersonal />
@@ -301,6 +306,10 @@ function TrabajosPersonal() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

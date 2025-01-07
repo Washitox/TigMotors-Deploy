@@ -6,6 +6,7 @@ import EstatusSolicitudes from "./Estatus_solicitudes";
 import EstatusTickets from "./Estatus_tickets";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
+import SoloDesktop from "./../../SoloDesktop";
 
 
 function Perfil() {
@@ -59,6 +60,8 @@ function Perfil() {
   }, []);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900 text-white">
       {/* Sidebar */}
       {!isMobile && <Sidebar />}
@@ -151,6 +154,10 @@ function Perfil() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

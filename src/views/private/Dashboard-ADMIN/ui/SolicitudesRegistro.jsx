@@ -5,6 +5,7 @@ import HeaderAdmin from "./HeaderAdmin";
 import Estatus from "./Estatus";
 import { FaSpinner } from "react-icons/fa";
 import { useMediaQuery } from "react-responsive";
+import SoloDesktop from "./../../SoloDesktop";
 
 export default function SolicitudesRegistro() {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -118,6 +119,8 @@ export default function SolicitudesRegistro() {
   );
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900 text-white">
       {!isMobile && <Sidebar />}
       <div className="flex-1 flex flex-col">
@@ -258,5 +261,9 @@ export default function SolicitudesRegistro() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }

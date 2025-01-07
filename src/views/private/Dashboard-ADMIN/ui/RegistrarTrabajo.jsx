@@ -3,6 +3,8 @@ import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import axios from "axios";
 import { FaSpinner } from "react-icons/fa";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function RegistrarTrabajo() {
   const [usernames, setUsernames] = useState([]);
@@ -13,7 +15,9 @@ function RegistrarTrabajo() {
   const [jobDescription, setJobDescription] = useState("");
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-  const [isLoading, setIsLoading] = useState(false); // Spinner de carga
+  const [isLoading, setIsLoading] = useState(false); 
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+
 
   const getToken = () => {
     return localStorage.getItem("authToken");
@@ -108,6 +112,8 @@ function RegistrarTrabajo() {
   };
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900 text-white">
       <Sidebar />
       <div className="flex-1 flex flex-col">
@@ -242,6 +248,10 @@ function RegistrarTrabajo() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

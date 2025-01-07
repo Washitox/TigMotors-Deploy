@@ -3,6 +3,7 @@ import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import axios from "axios";
 import { useMediaQuery } from "react-responsive";
+import SoloDesktop from "./../../SoloDesktop";
 
 function SolicitudesTrabajo() {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -192,6 +193,8 @@ function SolicitudesTrabajo() {
 
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex flex-col h-screen bg-gray-900 text-white sm:flex-row">
       <div className="flex h-screen bg-gray-900 text-white">
       <Sidebar compact={!isMobile} />
@@ -399,6 +402,10 @@ function SolicitudesTrabajo() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

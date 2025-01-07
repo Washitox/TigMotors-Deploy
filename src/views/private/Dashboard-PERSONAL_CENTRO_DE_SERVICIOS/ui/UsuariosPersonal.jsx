@@ -3,6 +3,8 @@ import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
 import { FaWhatsapp } from "react-icons/fa";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function UsuariosPersonal() {
   const [usuarios, setUsuarios] = useState([]);
@@ -10,6 +12,7 @@ function UsuariosPersonal() {
   const [searchTerm, setSearchTerm] = useState("");
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
 
   const getToken = () => {
     return localStorage.getItem("authToken");
@@ -58,6 +61,8 @@ function UsuariosPersonal() {
   }, []);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex h-screen bg-gray-900 text-white">
       {/* Sidebar */}
       <SidebarPersonal />
@@ -195,6 +200,10 @@ function UsuariosPersonal() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import HeaderUsuario from "./HeaderUsuario";
 import SidebarUser from "./SidebarUser";
 import axios from "axios";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
+
 
 function TrabajosUser() {
   const [trabajos, setTrabajos] = useState([]);
@@ -10,6 +13,8 @@ function TrabajosUser() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -109,6 +114,8 @@ function TrabajosUser() {
   }, []);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex h-screen bg-gray-900 text-white">
       {/* Sidebar del usuario */}
       <SidebarUser />
@@ -256,6 +263,10 @@ function TrabajosUser() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

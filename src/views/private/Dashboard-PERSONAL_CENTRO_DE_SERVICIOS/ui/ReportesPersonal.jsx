@@ -3,6 +3,8 @@ import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
 import { FaFilter, FaTrash, FaFilePdf } from "react-icons/fa";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function ReportesPersonal() {
   const [facturas, setFacturas] = useState([]);
@@ -18,6 +20,7 @@ function ReportesPersonal() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(15);
   const [usernames, setUsernames] = useState([]);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -207,6 +210,8 @@ function ReportesPersonal() {
   );
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900">
       <SidebarPersonal />
       <div className="flex-1 flex flex-col">
@@ -375,6 +380,10 @@ function ReportesPersonal() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 

@@ -3,6 +3,8 @@ import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
 import { FaCheck, FaFilter, FaTrash } from "react-icons/fa";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
 
 function EstadoPago() {
   const [facturas, setFacturas] = useState([]);
@@ -18,6 +20,7 @@ function EstadoPago() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [usernames, setUsernames] = useState([]);
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
 
 
   const getToken = () => localStorage.getItem("authToken");
@@ -166,6 +169,8 @@ function EstadoPago() {
   );
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex min-h-screen bg-gray-900">
       <SidebarPersonal />
       <div className="flex-1 flex flex-col">
@@ -335,6 +340,10 @@ function EstadoPago() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div> 
   );
 }
 

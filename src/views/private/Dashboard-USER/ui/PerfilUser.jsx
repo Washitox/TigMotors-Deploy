@@ -5,6 +5,9 @@ import axios from "axios";
 import { FaEye, FaEyeSlash, FaPencilAlt } from "react-icons/fa";
 import { Spinner } from 'keep-react';
 import { useNavigate } from "react-router-dom";
+import SoloDesktop from "./../../SoloDesktop";
+import { useMediaQuery } from "react-responsive";
+
 
 function PerfilUser() {
   const [userInfo, setUserInfo] = useState({
@@ -33,6 +36,8 @@ function PerfilUser() {
   const [deletePassword, setDeletePassword] = useState(""); // Contraseña para eliminar cuenta
   const [confirmDelete, setConfirmDelete] = useState(false); // Checkbox para confirmar
   const navigate = useNavigate();
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+
 
 
 
@@ -217,6 +222,8 @@ function PerfilUser() {
   }, []);
 
   return (
+    <div>
+    {isDesktop ? (
     <div className="flex h-screen bg-gray-900 text-white">
       {/* Sidebar del usuario */}
       <SidebarUser />
@@ -428,6 +435,10 @@ function PerfilUser() {
         </main>
       </div>
     </div>
+    ) : (
+      <SoloDesktop />
+    )}
+  </div>
   );
 }
 
