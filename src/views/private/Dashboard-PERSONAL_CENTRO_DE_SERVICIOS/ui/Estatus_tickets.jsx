@@ -8,6 +8,7 @@ import {
   Legend,
   Title,
 } from "chart.js";
+import { useMediaQuery } from "react-responsive";
 
 ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
@@ -18,6 +19,9 @@ export default function EstatusTickets() {
     EnProgreso: 0,
   });
   const [isLoading, setIsLoading] = useState(true);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 }); // Detectar si es móvil
+  const isDesktop = useMediaQuery({ minWidth: 1025 }); // Detectar si es escritorio
 
   const fetchTicketData = async () => {
     setIsLoading(true);
@@ -71,7 +75,7 @@ export default function EstatusTickets() {
         display: true,
         text: "Estado de los Tickets",
         font: {
-          size: 18,
+          size: isMobile ? 14 : 18, // Tamaño dinámico del texto
           family: "Arial",
         },
         color: "#ffffff",
@@ -79,21 +83,30 @@ export default function EstatusTickets() {
       legend: {
         labels: {
           color: "#ffffff",
+          font: {
+            size: isMobile ? 10 : 12, // Ajuste de tamaño dinámico de las etiquetas
+          },
         },
       },
     },
   };
 
   return (
-    <div className="w-full h-96 bg-gray-800 p-8 rounded-xl shadow-xl">
+    <div
+      className={`w-full ${
+        isDesktop ? "h-[500px]" : "h-96"
+      } bg-gray-800 p-8 rounded-xl shadow-xl flex flex-col justify-center`}
+    >
       <h2 className="text-lg font-bold text-center text-white mb-4">
         Estado de los Tickets
       </h2>
       {isLoading ? (
         <p className="text-center text-white">Cargando datos...</p>
       ) : (
-        <div className="h-60">
-          <Doughnut data={chartData} options={options} />
+        <div className="flex justify-center items-center h-full">
+          <div className={`w-${isDesktop ? "3/4" : "full"} h-full`}>
+            <Doughnut data={chartData} options={options} />
+          </div>
         </div>
       )}
     </div>

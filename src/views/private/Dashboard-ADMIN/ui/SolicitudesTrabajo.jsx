@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 
 function SolicitudesTrabajo() {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -17,6 +18,11 @@ function SolicitudesTrabajo() {
 
   const filterRef = useRef();
   const [message, setMessage] = useState({ text: "", type: "" });
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
 
   const getToken = () => {
@@ -115,7 +121,7 @@ function SolicitudesTrabajo() {
     } catch (error) {
       console.error("Error al guardar los datos:", error);
       setErrorMessage("Error al guardar los datos.");
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setTimeout(() => setErrorMessage(null), 3000);
     }
   };
 
@@ -184,18 +190,19 @@ function SolicitudesTrabajo() {
 
   const totalPages = Math.ceil(filteredSolicitudes.length / rowsPerPage);
 
+
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
-      <div className="flex min-h-screen bg-gray-900 text-white">
-        <Sidebar />
+    <div className="flex flex-col h-screen bg-gray-900 text-white sm:flex-row">
+      <div className="flex h-screen bg-gray-900 text-white">
+      <Sidebar compact={!isMobile} />
       </div>
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex flex-1 flex-col overflow-hidden">
         <HeaderAdmin />
 
-        <main className="p-6">
+        <main className="p-6 flex-1 overflow-auto">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
               <h1 className="text-2xl font-bold">Solicitudes de Trabajo</h1>
               <button
                 onClick={fetchSolicitudes}
@@ -205,9 +212,9 @@ function SolicitudesTrabajo() {
               </button>
             </div>
 
-            <div className="flex justify-between items-center mb-4">
-              <div>
-                <label className="text-gray-400 mr-2">Mostrar:</label>
+            <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
+              <div className="flex items-center gap-2">
+                <label className="text-gray-400">Mostrar:</label>
                 <select
                   value={rowsPerPage}
                   onChange={(e) => setRowsPerPage(Number(e.target.value))}
@@ -223,7 +230,7 @@ function SolicitudesTrabajo() {
                 placeholder="Buscar por ID o Usuario"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="bg-gray-700 text-white p-2 rounded w-64"
+                className="bg-gray-700 text-white p-2 rounded w-full sm:w-auto"
               />
               <div className="relative">
                 <button
@@ -280,20 +287,19 @@ function SolicitudesTrabajo() {
                 {message.text}
               </p>
             )}
-              <table className="w-full text-left table-auto">
-                <thead className="bg-gray-700">
+            <div className="overflow-x-auto max-h-[400px] border rounded-lg">
+              <table className="w-full text-left text-sm md:text-base table-auto border-collapse">
+                <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
-                    <th className="p-3">ID Solicitud</th>
-                    <th className="p-3">Usuario</th>
-                    <th className="p-3">Descripción Inicial</th>
-                    <th className="p-3">Descripción del Trabajo</th>
-                    <th className="p-3">Estado</th>
-                    <th className="p-3">Prioridad</th>
-                    <th className="p-3">Cotización</th>
-                    <th className="p-3">Estado de Cotización</th>
-                    <th className="p-3">Fecha</th>
-                    <th className="p-3">Estado de Pago</th>
-                    <th className="p-3">Acciones</th>
+                    <th className="p-3 truncate max-w-[200px]">ID Solicitud</th>
+                    <th className="p-3 truncate max-w-[200px]">Usuario</th>
+                    <th className="p-3 truncate max-w-[200px]">Descripción Inicial</th>
+                    <th className="p-3 truncate max-w-[200px]">Descripción del Trabajo</th>
+                    <th className="p-1 truncate max-w-[200px]">Estado</th>
+                    <th className="p-3 truncate max-w-[200px]">Cotización</th>
+                    <th className="p-1 truncate max-w-[200px]">Estado de Cotización</th>
+                    <th className="p-3 truncate max-w-[200px]">Fecha</th>
+                    <th className="p-3 truncate max-w-[200px]">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -314,14 +320,13 @@ function SolicitudesTrabajo() {
                             name="descripcionTrabajo"
                             value={editedValues.descripcionTrabajo}
                             onChange={handleInputChange}
-                            className="bg-gray-700 text-white p-2 rounded w-full"
+                            className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
                           />
                         ) : (
                           solicitud.descripcionTrabajo || "N/A"
                         )}
                       </td>
-                      <td className="p-3">{solicitud.estado}</td>
-                      <td className="p-3">{solicitud.prioridad}</td>
+                      <td className="p-1">{solicitud.estado}</td>
                       <td className="p-3">
                         {editingRow === solicitud.idSolicitud ? (
                           <input
@@ -329,13 +334,12 @@ function SolicitudesTrabajo() {
                             name="cotizacion"
                             value={editedValues.cotizacion}
                             onChange={handleInputChange}
-                            className="bg-gray-700 text-white p-2 rounded w-full"
+                            className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
                           />
                         ) : solicitud.cotizacion || "N/A"}
                       </td>
-                      <td className="p-3">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
+                      <td className="p-1">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
                       <td className="p-3">{solicitud.fechaCreacion}</td>
-                      <td className="p-3">{solicitud.pago || "Pendiente"}</td>
                       <td className="p-3 flex space-x-2">
                         {editingRow === solicitud.idSolicitud ? (
                           <button
@@ -369,9 +373,10 @@ function SolicitudesTrabajo() {
                   ))}
                 </tbody>
               </table>
+              </div>
             </div>
 
-            <div className="flex justify-between items-center mt-4">
+            <div className="flex flex-wrap justify-between items-center gap-4 mt-4">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}

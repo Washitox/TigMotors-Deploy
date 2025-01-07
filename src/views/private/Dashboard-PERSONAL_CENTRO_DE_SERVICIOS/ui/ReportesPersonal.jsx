@@ -16,10 +16,8 @@ function ReportesPersonal() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(15); 
-  const [usernames, setUsernames] = useState([]); // Lista de nombres de usuario
-
-
+  const [itemsPerPage, setItemsPerPage] = useState(15);
+  const [usernames, setUsernames] = useState([]);
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -63,7 +61,9 @@ function ReportesPersonal() {
 
       const payload = {};
       for (const [key, value] of Object.entries(formData)) {
-        if (value) payload[key] = key.includes("fecha") ? formatDate(value) : value;
+        if (value) {
+          payload[key] = key.includes("fecha") ? formatDate(value) : value; // Usa formatDate para fechas
+        }
       }
 
       const response = await axios.post(
@@ -74,9 +74,13 @@ function ReportesPersonal() {
         }
       );
 
-      const filteredData = response.data.facturas || [];
-      setFilteredFacturas(filteredData);
-      setSuccessMessage("Facturas filtradas con éxito.");
+      if (response.data && response.data.facturas.length > 0) {
+        setFilteredFacturas(response.data.facturas); // Actualiza el estado con las facturas filtradas
+        setSuccessMessage("Facturas filtradas con éxito.");
+      } else {
+        setFilteredFacturas([]); // Vacía la tabla si no hay resultados
+        setErrorMessage("No se encontraron facturas con los filtros aplicados.");
+      }
     } catch (error) {
       console.error("Error al filtrar las facturas:", error);
       setErrorMessage("No se pudieron filtrar las facturas.");
@@ -86,27 +90,26 @@ function ReportesPersonal() {
   const handleDownloadPDF = async () => {
     setErrorMessage(null);
     setSuccessMessage(null);
-  
+
     try {
       const token = getToken();
       if (!token) {
         setErrorMessage("No se encontró un token de autenticación.");
         return;
       }
-  
-      // Validar que las fechas están presentes y en el formato correcto
+
       if (!formData.fechaInicio || !formData.fechaFin) {
         setErrorMessage("Ambas fechas, inicio y fin, son obligatorias.");
         return;
       }
-  
+
       const payload = {
-        fechaInicio: formatDate(formData.fechaInicio), // Convertir al formato yyyy/MM/dd
-        fechaFin: formatDate(formData.fechaFin), // Convertir al formato yyyy/MM/dd
+        fechaInicio: formatDate(formData.fechaInicio),
+        fechaFin: formatDate(formData.fechaFin),
         username: formData.username,
         estadoPago: formData.estadoPago,
       };
-  
+
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/descargar-pdf`,
         payload,
@@ -115,29 +118,27 @@ function ReportesPersonal() {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          responseType: "blob", // Manejar la respuesta como archivo
+          responseType: "blob", // Asegúrate de manejar la respuesta como archivo
         }
       );
-  
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "facturas.pdf");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-  
-      setSuccessMessage("PDF descargado exitosamente.");
+
+      if (response.data) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `facturas-${Date.now()}.pdf`); // Nombre dinámico para el archivo
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setSuccessMessage("PDF descargado exitosamente.");
+      } else {
+        setErrorMessage("El PDF no contiene datos. Verifique los filtros aplicados.");
+      }
     } catch (error) {
       console.error("Error al descargar el PDF:", error);
-      setErrorMessage(
-        error.response?.data?.message || "No se pudo descargar el PDF."
-      );
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setErrorMessage("No se pudo descargar el PDF. Establesca todos los parametros");
     }
   };
-  
-  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -148,10 +149,9 @@ function ReportesPersonal() {
   };
 
   const handleItemsPerPageChange = (e) => {
-    setItemsPerPage(Number(e.target.value)); // Cambiar la cantidad de elementos por página
-    setCurrentPage(1); // Reiniciar a la primera página después de cambiar
+    setItemsPerPage(Number(e.target.value));
+    setCurrentPage(1); // Reinicia la página al cambiar el número de elementos
   };
-  
 
   const handleClearFilters = () => {
     setFormData({
@@ -170,7 +170,7 @@ function ReportesPersonal() {
         setErrorMessage("No se encontró un token de autenticación.");
         return;
       }
-  
+
       const response = await axios.get(
         `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/lista-nombres-usuarios`,
         {
@@ -181,20 +181,21 @@ function ReportesPersonal() {
     } catch (error) {
       console.error("Error al obtener los nombres de usuario:", error);
       setErrorMessage("No se pudieron cargar los nombres de usuario.");
-      setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
-  
 
   useEffect(() => {
     fetchAllFacturas();
-    fetchUsernames(); 
+    fetchUsernames();
+  }, []);
+
+  useEffect(() => {
     if (errorMessage || successMessage) {
       const timer = setTimeout(() => {
         setErrorMessage(null);
         setSuccessMessage(null);
-      }, 5000);
-  
+      }, 3000);
+
       return () => clearTimeout(timer);
     }
   }, [errorMessage, successMessage]);
@@ -204,10 +205,9 @@ function ReportesPersonal() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-  
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex min-h-screen bg-gray-900">
       <SidebarPersonal />
       <div className="flex-1 flex flex-col">
         <HeaderPersonal />
@@ -232,7 +232,7 @@ function ReportesPersonal() {
                 <option value={15}>15</option>
               </select>
             </div>
-            <div className="grid grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
               <div>
                 <label className="block text-sm text-gray-400">Fecha Inicio</label>
                 <input
@@ -277,9 +277,9 @@ function ReportesPersonal() {
                   onChange={handleInputChange}
                   className="w-full p-2 bg-gray-700 text-white rounded"
                 >
-                  <option value="">Todos</option>
-                  <option value="PENDIENTE_PAGO">Pendiente</option>
-                  <option value="VALOR_PAGADO">Pagado</option>
+                  <option value="">Seleccione</option>
+                  <option value="PENDIENTE_PAGO"> Pendiente</option>
+                  <option value="VALOR_PAGADO"> Pagado</option>
                 </select>
               </div>
             </div>
@@ -305,20 +305,20 @@ function ReportesPersonal() {
               </button>
             </div>
 
-            <div className="overflow-x-auto overflow-y-auto max-h-[400px]">
-              <table className="w-full text-left">
-                <thead className="bg-gray-700 text-white">
+            <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
+              <table className="table-auto w-full text-left text-sm sm:min-w-full">
+                <thead className="bg-gray-900 text-white sticky top-0 z-10">
                   <tr>
-                    <th className="p-3">ID Factura</th>
-                    <th className="p-3">ID Ticket</th>
-                    <th className="p-3">Usuario</th>
-                    <th className="p-3">Prioridad</th>
-                    <th className="p-3">Descripción Inicial</th>
-                    <th className="p-3">Descripción del Trabajo</th>
-                    <th className="p-3">Estado del Ticket</th>
-                    <th className="p-3">Cotización</th>
-                    <th className="p-3">Estado de Pago</th>
-                    <th className="p-3">Fecha de Creación</th>
+                    <th className="p-2 py-3">ID Factura</th>
+                    <th className="p-2 py-3">ID Ticket</th>
+                    <th className="p-2 py-3">Usuario</th>
+                    <th className="p-2 py-3">Prioridad</th>
+                    <th className="p-2 py-3">Descripción Inicial</th>
+                    <th className="p-2 py-3">Descripción del Trabajo</th>
+                    <th className="p-2 py-3">Estado del Ticket</th>
+                    <th className="p-1 py-3">Cotización</th>
+                    <th className="p-2 py-3">Estado de Pago</th>
+                    <th className="p-1 py-3">Fecha de Creación</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -331,18 +331,18 @@ function ReportesPersonal() {
                           : "bg-gray-700 text-white"
                       }
                     >
-                      <td className="p-3">{factura.facturaId}</td>
-                      <td className="p-3">{factura.ticketId}</td>
-                      <td className="p-3">{factura.username}</td>
-                      <td className="p-3">
+                      <td className="p-2 py-3">{factura.facturaId}</td>
+                      <td className="p-2 py-3">{factura.ticketId}</td>
+                      <td className="p-2 py-3">{factura.username}</td>
+                      <td className="p-2 py-3">
                         {factura.prioridad || "No disponible"}
                       </td>
-                      <td className="p-3">{factura.descripcionInicial}</td>
-                      <td className="p-3">{factura.descripcionTrabajo}</td>
-                      <td className="p-3">{factura.estadoTicket}</td>
-                      <td className="p-3">${factura.cotizacion}</td>
-                      <td className="p-3">{factura.estadoPago}</td>
-                      <td className="p-3">{factura.fechaCreacion}</td>
+                      <td className="p-2 py-3">{factura.descripcionInicial}</td>
+                      <td className="p-2 py-3">{factura.descripcionTrabajo}</td>
+                      <td className="p-2 py-3">{factura.estadoTicket}</td>
+                      <td className="p-1 py-3">${factura.cotizacion}</td>
+                      <td className="p-2 py-3">{factura.estadoPago}</td>
+                      <td className="p-1 py-3">{factura.fechaCreacion}</td>
                     </tr>
                   ))}
                 </tbody>

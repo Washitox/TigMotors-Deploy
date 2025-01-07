@@ -188,9 +188,9 @@ function TrabajosUser() {
             </div>
 
             {/* Tabla de trabajos */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[350px]">
-              <table className="w-full text-left">
-                <thead className="bg-gray-700">
+            <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
+              <table className="w-full text-left rounded-lg">
+                <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
                     <th className="p-3">ID Ticket</th>
                     <th className="p-3">Usuario</th>

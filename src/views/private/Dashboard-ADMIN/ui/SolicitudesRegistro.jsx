@@ -4,6 +4,7 @@ import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import Estatus from "./Estatus";
 import { FaSpinner } from "react-icons/fa";
+import { useMediaQuery } from "react-responsive";
 
 export default function SolicitudesRegistro() {
   const [solicitudes, setSolicitudes] = useState([]);
@@ -13,6 +14,11 @@ export default function SolicitudesRegistro() {
   const [isFetching, setIsFetching] = useState(false);
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const getToken = () => localStorage.getItem("authToken");
 
@@ -112,8 +118,8 @@ export default function SolicitudesRegistro() {
   );
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
-      <Sidebar />
+    <div className="flex min-h-screen bg-gray-900 text-white">
+      {!isMobile && <Sidebar />}
       <div className="flex-1 flex flex-col">
         <HeaderAdmin />
         <main className="p-6">
@@ -177,9 +183,9 @@ export default function SolicitudesRegistro() {
                 />
               </div>
 
-              <div className="overflow-x-auto overflow-y-auto max-h-[400px]">
-                <table className="w-full text-left">
-                  <thead className="bg-gray-700">
+              <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
+                <table className="w-full text-left border">
+                  <thead className="bg-gray-900 sticky top-0 z-10">
                     <tr>
                       <th className="p-3">ID</th>
                       <th className="p-3">Usuario</th>

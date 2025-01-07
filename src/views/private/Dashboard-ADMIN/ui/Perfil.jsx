@@ -22,8 +22,11 @@ function Perfil() {
   const isMobile = useMediaQuery({ maxWidth: 640 });
   const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
   const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const getToken = () => localStorage.getItem("authToken");
+
+
 
   const fetchProfileData = async () => {
     try {

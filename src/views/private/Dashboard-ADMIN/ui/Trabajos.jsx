@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
 import HeaderAdmin from "./HeaderAdmin";
 import axios from "axios";
+import { useMediaQuery } from "react-responsive";
 
 function Trabajos() {
   const [tickets, setTickets] = useState([]);
@@ -18,6 +19,11 @@ function Trabajos() {
     estado: "",
   });
   const [isLoading, setIsLoading] = useState(false);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const getToken = () => {
     return localStorage.getItem("authToken");
@@ -118,14 +124,14 @@ function Trabajos() {
 
   return (
     <div className="flex min-h-screen bg-gray-900 text-white">
-      <Sidebar />
+      {!isMobile && <Sidebar />}
 
       <div className="flex-1 flex flex-col">
         <HeaderAdmin />
 
-        <main className="p-6">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold mb-6">Trabajos</h1>
+        <main className="p-4 lg:p-6 xl:p-8">
+          <div className="bg-gray-800 p-4 lg:p-6 xl:p-8 rounded-lg shadow-lg">
+            <h1 className="text-lg lg:text-2xl font-bold mb-6">Trabajos</h1>
 
             {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
             {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}
@@ -159,7 +165,7 @@ function Trabajos() {
             </div>
 
             <div className="flex justify-between items-center mb-6">
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-6">
                 <input
                   type="date"
                   placeholder="Fecha Inicio"
@@ -185,7 +191,7 @@ function Trabajos() {
                   onChange={(e) =>
                     setFilterCriteria((prev) => ({ ...prev, username: e.target.value }))
                   }
-                  className="bg-gray-700 text-white p-2 rounded"
+                  className="bg-gray-700 text-white p-2 rounded w-full sm:w-64"
                 />
                 <select
                   value={filterCriteria.prioridad}
@@ -222,28 +228,28 @@ function Trabajos() {
               </button>
             </div>
 
-            <div className="overflow-x-auto overflow-y-auto max-h-[400px]">
-              <table className="w-full text-left table-auto">
-                <thead className="bg-gray-700">
+            <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
+              <table className="w-full table-auto text-sm md:text-base">
+                <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
-                    <th className="p-3">ID Ticket</th>
-                    <th className="p-3">Usuario</th>
-                    <th className="p-3">ID Solicitud</th>
-                    <th className="p-3">Estado</th>
-                    <th className="p-3">Descripción Inicial</th>
-                    <th className="p-3">Descripción del Trabajo</th>
-                    <th className="p-3">Prioridad</th>
-                    <th className="p-3">Fecha de Creación</th>
-                    <th className="p-3">Acciones</th>
+                    <th className="p-2">ID Ticket</th>
+                    <th className="p-2">Usuario</th>
+                    <th className="p-2">ID Solicitud</th>
+                    <th className="p-2">Estado</th>
+                    <th className="p-1">Descripción Inicial</th>
+                    <th className="p-1">Descripción del Trabajo</th>
+                    <th className="p-0.5">Prioridad</th>
+                    <th className="p-1">Fecha de Creación</th>
+                    <th className="p-1">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
                   {currentRows.map((ticket, idx) => (
                     <tr key={ticket.id} className={idx % 2 === 0 ? "bg-gray-600" : "bg-gray-700"}>
-                      <td className="p-3">{ticket.id || "No disponible"}</td>
-                      <td className="p-3">{ticket.username || "No disponible"}</td>
-                      <td className="p-3">{ticket.solicitudId || "No disponible"}</td>
-                      <td className="p-3">
+                      <td className="p-2">{ticket.id || "No disponible"}</td>
+                      <td className="p-2">{ticket.username || "No disponible"}</td>
+                      <td className="p-2">{ticket.solicitudId || "No disponible"}</td>
+                      <td className="p-2">
                         <select
                           value={ticket.estado}
                           onChange={(e) => changeTicketStatus(ticket.id, e.target.value)}
@@ -254,15 +260,15 @@ function Trabajos() {
                           <option value="TRABAJO_TERMINADO">TRABAJO_TERMINADO</option>
                         </select>
                       </td>
-                      <td className="p-3">{ticket.descripcionInicial || "No disponible"}</td>
-                      <td className="p-3">{ticket.descripcionTrabajo || "No disponible"}</td>
-                      <td className="p-3">{ticket.prioridad || "No disponible"}</td>
-                      <td className="p-3">
+                      <td className="p-1">{ticket.descripcionInicial || "No disponible"}</td>
+                      <td className="p-1">{ticket.descripcionTrabajo || "No disponible"}</td>
+                      <td className="p-0.5">{ticket.prioridad || "No disponible"}</td>
+                      <td className="p-1">
                         {ticket.fechaCreacion
                           ? new Date(ticket.fechaCreacion).toLocaleDateString()
                           : "No disponible"}
                       </td>
-                      <td className="p-3">
+                      <td className="p-1">
                         <button
                           onClick={() => fetchTickets()}
                           className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
@@ -276,21 +282,23 @@ function Trabajos() {
               </table>
             </div>
 
-            <div className="flex justify-between items-center mt-4">
+
+            {/* Paginación */}
+            <div className="flex flex-wrap justify-between items-center mt-4 gap-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className="bg-gray-700 text-white py-2 px-4 rounded disabled:opacity-50"
+                className="bg-gray-700 text-white py-2 px-4 rounded"
               >
                 Anterior
               </button>
-              <p>
+              <p className="text-sm sm:text-base">
                 Página {currentPage} de {totalPages}
               </p>
               <button
                 onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className="bg-gray-700 text-white py-2 px-4 rounded disabled:opacity-50"
+                className="bg-gray-700 text-white py-2 px-4 rounded"
               >
                 Siguiente
               </button>

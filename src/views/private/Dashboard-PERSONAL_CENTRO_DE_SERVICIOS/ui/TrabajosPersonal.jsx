@@ -119,7 +119,7 @@ function TrabajosPersonal() {
   
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex min-h-screen bg-gray-900">
       {/* Sidebar */}
       <SidebarPersonal />
 
@@ -234,9 +234,9 @@ function TrabajosPersonal() {
             </div>
 
             {/* Tabla de tickets */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[400px]">
+            <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
               <table className="w-full text-left">
-                <thead className="bg-gray-700 text-white">
+                <thead className="bg-gray-900 text-white sticky top-0 z-10">
                   <tr>
                     <th className="p-3">ID</th>
                     <th className="p-3">Usuario</th>

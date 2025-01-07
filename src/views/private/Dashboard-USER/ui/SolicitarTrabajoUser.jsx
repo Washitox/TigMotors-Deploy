@@ -187,13 +187,13 @@ const SolicitarTrabajoUser = () => {
   const totalPages = Math.ceil(filteredSolicitudes.length / itemsPerPage);
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex min-h-screen bg-gray-900 text-white">
       <SidebarUser />
       <div className="flex-1 flex flex-col">
         <HeaderUsuario />
-        <main className="p-6 grid grid-cols-[20%,auto] gap-6">
+        <main className="p-4 md:p-6 flex flex-col gap-6">
           {/* Formulario */}
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-[400px] mx-auto md:mx-0">
             <h2 className="text-xl font-bold mb-4 text-center">Solicitar Trabajo</h2>
             <textarea
               placeholder="Describa pieza y daño"
@@ -220,7 +220,7 @@ const SolicitarTrabajoUser = () => {
           </div>
 
           {/* Tabla */}
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg flex-1">
             <h1 className="text-2xl font-bold mb-4 text-center">Historial de Solicitudes</h1>
 
             {/* Filtros */}
@@ -267,26 +267,28 @@ const SolicitarTrabajoUser = () => {
                 )}
 
             {/* Tabla */}
-            <div className="overflow-x-auto overflow-y-auto max-h-[600px]">
-                <table className="table-auto w-full">
-                <thead className="bg-gray-700">
+            <div className="overflow-x-auto max-h-[400px] relative border rounded-lg">
+                <table className="table-auto w-full text-left text-sm min-w-[768px]">
+                <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
-                    <th className="px-2 py-2">ID Solicitud</th>
-                    <th className="px-2 py-2">Descripción Inicial</th>
-                    <th className="px-2 py-2">Descripción de Trabajo</th>
-                    <th className="px-2 py-2">Estado</th>
-                    <th className="px-2 py-2">Prioridad</th>
-                    <th className="px-2 py-2">Cotización</th>
-                    <th className="px-2 py-2">Est Cotización</th>
-                    <th className="px-2 py-2">Fecha</th>
-                    <th className="px-2 py-2">Acciones</th>
+                    <th className="px-1 py-3">ID Solicitud</th>
+                    <th className="px-1 py-3">Descripción Inicial</th>
+                    <th className="px-1 py-3">Descripción de Trabajo</th>
+                    <th className="px-1 py-3">Estado</th>
+                    <th className="px-1 py-3">Prioridad</th>
+                    <th className="px-1 py-3">Cotización</th>
+                    <th className="px-1 py-3">Est Cotización</th>
+                    <th className="px-1 py-3">Fecha</th>
+                    <th className="px-1 py-3">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {paginatedSolicitudes.map((sol) => (
-                    <tr key={sol.idSolicitud} className="bg-gray-600">
-                      <td className="px-4 py-2">{sol.idSolicitud}</td>
-                      <td className="px-4 py-2">
+                  {paginatedSolicitudes.map((sol, idx) => (
+                    <tr key={sol.idSolicitud}
+                    className={idx % 2 === 0 ? "bg-gray-600" : "bg-gray-700"} // Alterna los colores
+                  >
+                      <td className="px-1 py-2 ">{sol.idSolicitud}</td>
+                      <td className="px-1 py-2">
                         {editingSolicitud === sol.idSolicitud ? (
                           <input
                             type="text"
@@ -303,36 +305,48 @@ const SolicitarTrabajoUser = () => {
                           sol.descripcionInicial
                         )}
                       </td>
-                      <td className="px-4 py-2">{sol.descripcionTrabajo || "En espera"}</td>
-                      <td className="px-4 py-2">{sol.estado}</td>
-                      <td className="px-4 py-2">{sol.prioridad}</td>
-                      <td className="px-4 py-2">{sol.cotizacion || "N/A"}</td>
-                      <td className="px-4 py-2">{sol.cotizacionAceptada || "N/A"}</td>
-                      <td className="px-4 py-2">{sol.fechaCreacion || "N/A"}</td>
-                      <td className="px-4 py-2 flex space-x-2">
+                      <td className="px-1 py-3">{sol.descripcionTrabajo || "En espera"}</td>
+                      <td className="px-1 py-3">{sol.estado}</td>
+                      <td className="px-1 py-3">{sol.prioridad}</td>
+                      <td className="px-1 py-3">{sol.cotizacion || "N/A"}</td>
+                      <td className="px-1 py-3">{sol.cotizacionAceptada || "N/A"}</td>
+                      <td className="px-1 py-3">{sol.fechaCreacion || "N/A"}</td>
+                      <td className="px-1 py-3 flex space-x-2">
                         {editingSolicitud === sol.idSolicitud ? (
+                          <div className="flex flex-col items-center justify-center">
                           <FaSave
                             onClick={() => handleSaveDescription(sol.idSolicitud)}
                             className="text-green-500 cursor-pointer"
                           />
+                          </div>
                         ) : (
+                          <div className="flex flex-col items-center justify-center">
                           <FaPencilAlt
                             onClick={() => setEditingSolicitud(sol.idSolicitud)}
                             className="text-blue-500 cursor-pointer"
                           />
+                          </div>
                         )}
+                        <div className="flex flex-col items-center justify-center">
                         <FaCheck
                           onClick={() => handleAcceptCotizacion(sol.idSolicitud)}
                           className="text-green-500 cursor-pointer"
                         />
+                        <span className="text-xs text-gray-400">Aceptar</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
                         <FaTimes
                           onClick={() => handleRejectCotizacion(sol.idSolicitud)}
                           className="text-red-500 cursor-pointer"
                         />
+                        <span className="text-xs text-gray-400">Rechazar</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center">
                         <FaTrash
                           onClick={() => handleDelete(sol.idSolicitud)}
                           className="text-red-500 cursor-pointer"
                         />
+                        </div>
                       </td>
                     </tr>
                   ))}

@@ -166,7 +166,7 @@ function EstadoPago() {
   );
 
   return (
-    <div className="flex h-screen bg-gray-900">
+    <div className="flex min-h-screen bg-gray-900">
       <SidebarPersonal />
       <div className="flex-1 flex flex-col">
         <HeaderPersonal />
@@ -263,8 +263,8 @@ function EstadoPago() {
                 {successMessage && <p className="text-green-500">{successMessage}</p>}
             </div>
             )}
-                <table className="w-full text-left">
-                    <thead className="bg-gray-700 text-white">
+                <table className="w-full overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg ">
+                    <thead className="bg-gray-900 text-white sticky top-0 z-10">
                     <tr>
                         <th className="p-3">ID Factura</th>
                         <th className="p-3">ID Ticket</th>

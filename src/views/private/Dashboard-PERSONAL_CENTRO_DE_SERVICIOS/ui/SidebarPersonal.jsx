@@ -15,7 +15,7 @@ function SidebarPersonal() {
   ];
 
   return (
-    <aside className="w-64 bg-gray-800 h-full flex flex-col">
+    <aside className="w-64 bg-gray-800 min-h-full flex flex-col">
       {/* Encabezado del sidebar */}
       <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white">
         TigMotors Personal

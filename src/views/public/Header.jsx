@@ -8,6 +8,10 @@ export default function Header() {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Placeholder state for login status
   const navigate = useNavigate()
 
+  const navigateLanding = () => {
+    navigate("/")
+  }
+
   const navigateLogin = () => {
     navigate("/login")
   }
@@ -26,10 +30,16 @@ export default function Header() {
           <div className="flex flex-1 items-center">
             {/* <Logo /> */}
             
-            <a href="/" className="flex items-center">
-                <img src={logo} className="rounded-full h-10"/>
-                <span className="ml-2 font-bold text-white">TigMotors</span>
-            </a>
+            <Button
+              onClick={navigateLanding}
+              color="secondary"
+              size="sm"
+              
+            >
+              <img src={logo} className="rounded-full h-10" />
+              <span className="ml-2 font-bold text-white">TigMotors</span>
+            </Button>
+
           </div>
 
           {/* Navigation links or sign-in/signup buttons */}

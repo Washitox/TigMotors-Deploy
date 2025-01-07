@@ -62,21 +62,34 @@ export default function Estatus() {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Permite ajustar la gráfica a la altura del contenedor
     plugins: {
       title: {
         display: true,
         text: "Estado de las Solicitudes",
+        font: {
+          size: 20, // Tamaño del texto del título
+        },
+        color: "#ffffff", // Color del título
+      },
+      legend: {
+        labels: {
+          color: "#ffffff", // Color de las etiquetas de la leyenda
+        },
       },
     },
   };
+  
 
   return (
-    <div className="w-full h-96 bg-gray-800 p-8 rounded-xl shadow-xl">
+    <div className="w-full h-96 bg-gray-800 p-6 rounded-xl shadow-xl">
       <h2 className="text-center font-bold text-white mb-4">Usuarios</h2>
       {isFetching ? (
         <div className="text-center text-white">Cargando...</div>
       ) : (
+        <div className="h-60">
         <Bar data={chartData} options={options} />
+        </div>
       )}
     </div>
   );

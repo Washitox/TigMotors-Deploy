@@ -6,6 +6,7 @@ import { Input, Label, Button } from "keep-react";
 import { FaEye, FaEyeSlash, FaPencilAlt, FaSave } from "react-icons/fa";
 import axios from "axios";
 import _ from "lodash";
+import { useMediaQuery } from "react-responsive";
 
 function Usuarios() {
   const {
@@ -25,6 +26,11 @@ function Usuarios() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
+
+  const isMobile = useMediaQuery({ maxWidth: 640 });
+  const isTablet = useMediaQuery({ minWidth: 641, maxWidth: 1024 });
+  const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const getToken = () => {
     const token = localStorage.getItem("authToken");
@@ -262,7 +268,7 @@ const fetchByIdOrName = async (searchValue) => {
   return (
     <div className="flex min-h-screen bg-gray-900 text-white">
       {/* Sidebar para la navegación */}
-      <Sidebar />
+      {!isMobile && <Sidebar />}
 
       {/* Contenedor principal */}
       <div className="flex-1 flex flex-col">
@@ -273,7 +279,7 @@ const fetchByIdOrName = async (searchValue) => {
         <main className="p-6 flex gap-6">
           {/* Sección del formulario de registro */}
           <div className="bg-gray-800 p-4 rounded-lg shadow-lg"
-            style={{ width: "300px", flexShrink: 0 }}>
+            style={{ width: isTablet ? "400px" : isDesktop ? "300px" : "100%" }}>
             <h1 className="text-xl font-bold mb-4">Registrar Usuario</h1>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               {/* Username */}
@@ -438,13 +444,13 @@ const fetchByIdOrName = async (searchValue) => {
             </div>
             </div>
 
-            <div className="overflow-x-auto overflow-y-auto max-h-[400px]">
-              <table className="w-full text-left">
-                <thead className="bg-gray-700">
+            <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
+              <table className="w-full text-left text-sm md:text-base">
+                <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
                     <th className="p-3">ID</th>
-                    <th className="p-3">Usuario</th>
-                    <th className="p-3">Empresa</th>
+                    <th className="p-1">Usuario</th>
+                    <th className="p-1">Empresa</th>
                     <th className="p-3">Correo</th>
                     <th className="p-3">Teléfono</th>
                     <th className="p-3">Acciones</th>
@@ -456,9 +462,9 @@ const fetchByIdOrName = async (searchValue) => {
                       key={user.id}
                       className={idx % 2 === 0 ? "bg-gray-600" : "bg-gray-700"}
                     >
-                      <td className="p-3">{user.id}</td>
+                      <td className="p-1">{user.id}</td>
                       {["username", "businessName", "email", "phoneNumber"].map((field) => (
-                        <td className="p-3" key={field}>
+                        <td className="p-1" key={field}>
                           <div className="flex items-center gap-2">
                             {editingRow[user.id] ? (
                               <input

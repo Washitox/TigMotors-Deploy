@@ -108,12 +108,12 @@ function RegistrarTrabajo() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-900 text-white">
+    <div className="flex min-h-screen bg-gray-900 text-white">
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <HeaderAdmin />
         <main className="p-6">
-          <div className="bg-gray-800 p-8 rounded-lg shadow-lg max-w-2xl mx-auto">
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl mx-auto flex flex-col justify-center min-h-[calc(100vh-120px)]">
             <h1 className="text-3xl font-bold mb-6 text-center">Registrar Trabajo</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Mensajes */}
@@ -200,7 +200,7 @@ function RegistrarTrabajo() {
                   id="quote"
                   value={quote}
                   onChange={(e) => setQuote(e.target.value)}
-                  className="mt-1 block w-full bg-gray-700 text-white p-2 rounded"
+                  className="mt-1 block w-full bg-gray-700 text-white p-2 rounded text-sm sm:text-base"
                   step="0.01"
                 />
               </div>
@@ -225,7 +225,7 @@ function RegistrarTrabajo() {
               <div>
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2"
+                  className="w-full bg-blue-600 text-white font-bold py-2 px-4 rounded-lg flex items-center justify-center gap-2 text-sm sm:text-base"
                   disabled={isLoading}
                 >
                   {isLoading ? (
