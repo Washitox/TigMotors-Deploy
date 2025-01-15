@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LandingView from "./views/public/Landing/LandingView";
+import TerminosYCondiciones from "./views/public/Terminos y politicas/TerminosView"
+import Politicasprivacidad from "./views/public/Terminos y politicas/PoliticaPrivacidadView"
 import PrivateRoute from "./routes/PrivateRoute";
 import LoginView from "./views/public/Login/LoginView";
 import RegisterView from "./views/public/Register/RegisterView";
@@ -37,6 +39,8 @@ const App = () => {
           <Route path="/register" element={<RegisterView />} />
           <Route path="/reset-password" element={<RecuperarContraseñaView />} />
           <Route path="/new-password" element={<NuevaContraseñaView />} />
+          <Route path="/terminos" element={<TerminosYCondiciones />} />
+          <Route path="/privacidad" element={<Politicasprivacidad />} />
         </Route>
 
         <Route element={<PrivateRoute />}>
