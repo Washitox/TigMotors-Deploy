@@ -93,26 +93,22 @@ function ReportesPersonal() {
   const handleDownloadPDF = async () => {
     setErrorMessage(null);
     setSuccessMessage(null);
-
+  
     try {
       const token = getToken();
       if (!token) {
         setErrorMessage("No se encontró un token de autenticación.");
         return;
       }
-
-      if (!formData.fechaInicio || !formData.fechaFin) {
-        setErrorMessage("Ambas fechas, inicio y fin, son obligatorias.");
-        return;
+  
+      // Construir el payload dinámicamente con los filtros proporcionados
+      const payload = {};
+      for (const [key, value] of Object.entries(formData)) {
+        if (value) {
+          payload[key] = key.includes("fecha") ? formatDate(value) : value; // Usa formatDate para fechas
+        }
       }
-
-      const payload = {
-        fechaInicio: formatDate(formData.fechaInicio),
-        fechaFin: formatDate(formData.fechaFin),
-        username: formData.username,
-        estadoPago: formData.estadoPago,
-      };
-
+  
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/descargar-pdf`,
         payload,
@@ -124,7 +120,7 @@ function ReportesPersonal() {
           responseType: "blob", // Asegúrate de manejar la respuesta como archivo
         }
       );
-
+  
       if (response.data) {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
@@ -139,9 +135,10 @@ function ReportesPersonal() {
       }
     } catch (error) {
       console.error("Error al descargar el PDF:", error);
-      setErrorMessage("No se pudo descargar el PDF. Establesca todos los parametros");
+      setErrorMessage("No se pudo descargar el PDF. Verifique los filtros aplicados.");
     }
   };
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -282,7 +279,7 @@ function ReportesPersonal() {
                   onChange={handleInputChange}
                   className="w-full p-2 bg-gray-700 text-white rounded"
                 >
-                  <option value="">Seleccione</option>
+                  <option value="">Todos</option>
                   <option value="PENDIENTE_PAGO"> Pendiente</option>
                   <option value="VALOR_PAGADO"> Pagado</option>
                 </select>

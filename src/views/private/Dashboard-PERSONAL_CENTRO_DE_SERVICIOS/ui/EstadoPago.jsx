@@ -85,7 +85,7 @@ function EstadoPago() {
     }
   };
 
-  const handleUpdatePago = async (facturaId) => {
+  const handleUpdatePago = async (comprobanteId) => {
     try {
       const token = getToken();
       if (!token) {
@@ -94,7 +94,7 @@ function EstadoPago() {
       }
 
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${facturaId}/actualizar-pago`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${comprobanteIdId}/actualizar-pago`,
         null,
         {
           headers: { Authorization: `Bearer ${token}` },
