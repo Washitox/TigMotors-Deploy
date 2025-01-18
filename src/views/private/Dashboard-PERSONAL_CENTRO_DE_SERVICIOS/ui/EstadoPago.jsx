@@ -271,7 +271,7 @@ function EstadoPago() {
                 <table className="w-full overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg ">
                     <thead className="bg-gray-900 text-white sticky top-0 z-10">
                     <tr>
-                        <th className="p-3">ID Factura</th>
+                        <th className="p-3">ID Comprobante</th>
                         <th className="p-3">ID Ticket</th>
                         <th className="p-3">Usuario</th>
                         <th className="p-3">Descripción Inicial</th>
@@ -292,7 +292,7 @@ function EstadoPago() {
                             : "bg-gray-700 text-white"
                         }
                         >
-                        <td className="p-2">{factura.facturaId}</td>
+                        <td className="p-2">{factura.comprobanteId}</td>
                         <td className="p-2">{factura.ticketId}</td>
                         <td className="p-2">{factura.username}</td>
                         <td className="p-2">{factura.descripcionInicial}</td>
