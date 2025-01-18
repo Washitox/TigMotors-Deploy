@@ -86,7 +86,7 @@ function ReportesPersonal() {
       }
     } catch (error) {
       console.error("Error al filtrar las facturas:", error);
-      setErrorMessage("No se pudieron filtrar las facturas.");
+      setErrorMessage("No se pudieron filtrar las facturas. Los campos de fechas son obligatorias");
     }
   };
 
@@ -131,11 +131,11 @@ function ReportesPersonal() {
         document.body.removeChild(link);
         setSuccessMessage("PDF descargado exitosamente.");
       } else {
-        setErrorMessage("El PDF no contiene datos. Verifique los filtros aplicados.");
+        setErrorMessage("El PDF no contiene datos. Verifique los filtros aplicados. Las fechas son obligatorias");
       }
     } catch (error) {
       console.error("Error al descargar el PDF:", error);
-      setErrorMessage("No se pudo descargar el PDF. Verifique los filtros aplicados.");
+      setErrorMessage("No se pudo descargar el PDF. Verifique los filtros aplicados. Las fechas son obligatorias");
     }
   };
   
