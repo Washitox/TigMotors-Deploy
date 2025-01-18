@@ -302,7 +302,7 @@ function SolicitudesTrabajo() {
                     <th className="p-3 truncate max-w-[200px]">Cotización</th>
                     <th className="p-1 truncate max-w-[200px]">Estado de Cotización</th>
                     <th className="p-3 truncate max-w-[200px]">Fecha</th>
-                    <th className="p-3 truncate max-w-[200px]">Acciones</th>
+                    <th className="p-3 w-64 text-center">Acciones</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -343,35 +343,38 @@ function SolicitudesTrabajo() {
                       </td>
                       <td className="p-1">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
                       <td className="p-3">{solicitud.fechaCreacion}</td>
-                      <td className="p-3 flex space-x-2">
-                        {editingRow === solicitud.idSolicitud ? (
-                          <button
-                            onClick={() => handleSave(solicitud.idSolicitud)}
-                            className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
-                          >
-                            Guardar
-                          </button>
-                        ) : (
+                      <td className="p-3 flex justify-around items-center space-x-2">
+                        {(solicitud.cotizacion === "N/A" || !solicitud.cotizacion) && editingRow !== solicitud.idSolicitud && (
                           <button
                             onClick={() => handleEdit(solicitud.idSolicitud)}
-                            className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded"
+                            className="w-24 py-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded"
                           >
                             Editar
                           </button>
                         )}
+                        {editingRow === solicitud.idSolicitud && (
+                          <button
+                            onClick={() => handleSave(solicitud.idSolicitud)}
+                            className="w-24 py-2 text-center bg-green-500 hover:bg-green-600 text-white font-bold rounded"
+                          >
+                            Enviar
+                          </button>
+                        )}
                         <button
                           onClick={() => handleReject(solicitud.idSolicitud)}
-                          className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded"
+                          className="w-24 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-bold rounded"
                         >
                           Rechazar
                         </button>
                         <button
                           onClick={() => handleDelete(solicitud.idSolicitud)}
-                          className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded"
+                          className="w-24 py-2 text-center bg-gray-500 hover:bg-gray-600 text-white font-bold rounded"
                         >
                           Eliminar
                         </button>
                       </td>
+
+
                     </tr>
                   ))}
                 </tbody>

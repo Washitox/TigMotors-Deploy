@@ -31,12 +31,12 @@ export default function PoliticaPrivacidadView() {
           <TermTitle>Uso de la Información</TermTitle>
           <TermText>
             Los datos personales recopilados son utilizados para:
-            <ul className="list-disc text-left pl-8 mt-2">
-              <li>Procesar solicitudes de reparación de blocs y cabezotes.</li>
-              <li>Enviar actualizaciones sobre el estado y pagos del Ticket.</li>
-              <li>Proporcionar recomendaciones técnicas personalizadas.</li>
-            </ul>
           </TermText>
+          <ul className="list-disc text-left pl-8 mt-2">
+            <li>Procesar solicitudes de reparación de blocs y cabezotes.</li>
+            <li>Enviar actualizaciones sobre el estado y pagos del Ticket.</li>
+            <li>Proporcionar recomendaciones técnicas personalizadas.</li>
+          </ul>
         </Section>
 
         <Section>
@@ -50,11 +50,13 @@ export default function PoliticaPrivacidadView() {
           <TermTitle>Tus Derechos</TermTitle>
           <TermText>
             Como cliente, tienes derecho a:
-            <ul className="list-disc text-left pl-8 mt-2">
-              <li>Acceder a tus datos personales.</li>
-              <li>Solicitar la rectificación de las piezas.</li>
-              <li>Limitar el procesamiento de tu información.</li>
-            </ul>
+          </TermText>
+          <ul className="list-disc text-left pl-8 mt-2">
+            <li>Acceder a tus datos personales.</li>
+            <li>Solicitar la rectificación de las piezas.</li>
+            <li>Limitar el procesamiento de tu información.</li>
+          </ul>
+          <TermText>
             Para ejercer estos derechos, contáctanos a través de nuestro correo oficial <Highlight>tigmotors.inc.uio@gmail.com</Highlight>.
           </TermText>
         </Section>
