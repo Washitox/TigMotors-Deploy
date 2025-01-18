@@ -1,14 +1,16 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaBriefcase, FaClipboard, FaCog } from "react-icons/fa";
+import { FaBriefcase, FaClipboard, FaCog, FaFileInvoice } from "react-icons/fa";
 
 export default function SidebarUser() {
   const location = useLocation(); // Hook para obtener la ruta actual
 
   const menuItems = [
     { name: "Trabajos", path: "/user/trabajos", icon: <FaBriefcase /> },
+    { name: "Comprobantes", path: "/user/comprobantes", icon: <FaFileInvoice /> },
     { name: "Solicitudes para trabajo", path: "/user/solicitar-trabajo", icon: <FaClipboard /> },
     { name: "Perfil", path: "/user/perfil", icon: <FaCog /> },
+    
   ];
 
   return (

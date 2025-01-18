@@ -22,6 +22,7 @@ import RegistrarTrabajo from "./views/private/Dashboard-ADMIN/ui/RegistrarTrabaj
 import Perfil from "./views/private/Dashboard-ADMIN/ui/Perfil";
 import PerfilUser from "./views/private/Dashboard-USER/ui/PerfilUser";
 import TrabajosUser from "./views/private/Dashboard-USER/ui/TrabajosUser";
+import ComprobantesUser from "./views/private/Dashboard-USER/ui/ComprobantesUser.jsx";
 import SolicitarTrabajoUser from "./views/private/Dashboard-USER/ui/SolicitarTrabajoUser";
 import TrabajosPersonal from "./views/private/Dashboard-PERSONAL_CENTRO_DE_SERVICIOS/ui/TrabajosPersonal";
 import EstadoPago from "./views/private/Dashboard-PERSONAL_CENTRO_DE_SERVICIOS/ui/EstadoPago";
@@ -66,6 +67,7 @@ const App = () => {
               <Route path="/user/" element={<DashboardUserView />} />
               <Route path="/user/perfil" element={<PerfilUser />} />
               <Route path="/user/trabajos" element={<TrabajosUser />} />
+              <Route path="/user/comprobantes" element={<ComprobantesUser />} />
               <Route path="/user/solicitar-trabajo" element={<SolicitarTrabajoUser />} />
             </Route>
           </Route>
