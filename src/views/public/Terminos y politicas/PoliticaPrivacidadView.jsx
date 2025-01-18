@@ -33,7 +33,7 @@ export default function PoliticaPrivacidadView() {
             Los datos personales recopilados son utilizados para:
           </TermText>
           <ul className="list-disc text-left pl-8 mt-2">
-            <li>Procesar solicitudes de reparación de blocs y cabezotes.</li>
+            <li>Procesar solicitudes de reparación de blocks y cabezotes.</li>
             <li>Enviar actualizaciones sobre el estado y pagos del Ticket.</li>
             <li>Proporcionar recomendaciones técnicas personalizadas.</li>
           </ul>

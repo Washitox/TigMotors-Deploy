@@ -101,7 +101,7 @@ function EstadoPago() {
         }
       );
 
-      setSuccessMessage(`Pago de la factura ${facturaId} actualizado con éxito.`);
+      setSuccessMessage(`Pago de la factura ${comprobanteId} actualizado con éxito.`);
       fetchAllFacturas(); // Actualizar la tabla después del cambio
     } catch (error) {
       console.error(`Error al actualizar el pago de la factura ${facturaId}:`, error);

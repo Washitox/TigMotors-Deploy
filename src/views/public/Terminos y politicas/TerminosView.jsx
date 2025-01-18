@@ -17,13 +17,13 @@ export default function TerminosView() {
           Términos y Condiciones de TigMotors
         </h1>
         <p className="text-indigo-300">
-          A continuación, detallamos los términos y condiciones relacionados con nuestros servicios especializados en soldaduras de blocs y cabezotes.
+          A continuación, detallamos los términos y condiciones relacionados con nuestros servicios especializados en soldaduras de blocks y cabezotes.
         </p>
 
         <Section>
           <TermTitle>Términos de Uso</TermTitle>
           <TermText>
-            Al utilizar los servicios de TigMotors, el cliente <Highlight>acepta</Highlight> que los procedimientos de reparación y soldadura se realizarán conforme a los estándares establecidos. La responsabilidad del cliente incluye proporcionar información precisa sobre los daños del bloque o cabezote.
+            Al utilizar los servicios de TigMotors, el cliente <Highlight>acepta</Highlight> que los procedimientos de reparación y soldadura se realizarán conforme a los estándares establecidos. La responsabilidad del cliente incluye proporcionar información precisa sobre los daños del block o cabezote.
           </TermText>
         </Section>
 
@@ -37,7 +37,7 @@ export default function TerminosView() {
         <Section>
           <TermTitle>Responsabilidad Limitada</TermTitle>
           <TermText>
-            TigMotors no será responsable por daños adicionales hacia las piezas que no hayan sido informados previamente. El cliente reconoce que las reparaciones en blocs y cabezotes requieren inspecciones regulares para evitar problemas mayores.
+            TigMotors no será responsable por daños adicionales hacia las piezas que no hayan sido informados previamente. El cliente reconoce que las reparaciones en blocks y cabezotes requieren inspecciones regulares para evitar problemas mayores.
           </TermText>
         </Section>
 
