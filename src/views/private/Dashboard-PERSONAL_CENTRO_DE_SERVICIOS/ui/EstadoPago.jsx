@@ -99,7 +99,7 @@ function EstadoPago() {
       }
   
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${comprobanteId}/actualizar-pago`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${facturaId}/actualizar-pago`,
         null,
         {
           headers: { Authorization: `Bearer ${token}` },
