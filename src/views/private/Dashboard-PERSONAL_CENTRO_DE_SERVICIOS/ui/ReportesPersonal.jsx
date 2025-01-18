@@ -218,7 +218,7 @@ function ReportesPersonal() {
         <HeaderPersonal />
         <main className="p-6">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
-            <h1 className="text-2xl font-bold text-white mb-6">Facturas</h1>
+            <h1 className="text-2xl font-bold text-white mb-6">Comprobantes</h1>
             {(errorMessage || successMessage) && (
               <div className="mb-4 text-center">
                 {errorMessage && <p className="text-red-500">{errorMessage}</p>}
@@ -314,7 +314,7 @@ function ReportesPersonal() {
               <table className="table-auto w-full text-left text-sm sm:min-w-full">
                 <thead className="bg-gray-900 text-white sticky top-0 z-10">
                   <tr>
-                    <th className="p-2 py-3">ID Factura</th>
+                    <th className="p-2 py-3">ID Comprobante</th>
                     <th className="p-2 py-3">ID Ticket</th>
                     <th className="p-2 py-3">Usuario</th>
                     <th className="p-2 py-3">Prioridad</th>
@@ -336,7 +336,7 @@ function ReportesPersonal() {
                           : "bg-gray-700 text-white"
                       }
                     >
-                      <td className="p-2 py-3">{factura.facturaId}</td>
+                      <td className="p-2 py-3">{factura.comprobanteId}</td>
                       <td className="p-2 py-3">{factura.ticketId}</td>
                       <td className="p-2 py-3">{factura.username}</td>
                       <td className="p-2 py-3">
