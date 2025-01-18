@@ -99,7 +99,7 @@ function EstadoPago() {
       }
   
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${facturaId}/actualizar-pago`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${comprobanteId}/actualizar-pago`,
         null,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -107,7 +107,7 @@ function EstadoPago() {
       );
   
       setSuccessMessage(`Pago de la factura ${comprobanteId} actualizado con éxito.`);
-      fetchAllFacturas(); // Actualizar la tabla después del cambio
+      fetchAllFacturas(); 
     } catch (error) {
       console.error(`Error al actualizar el pago de la factura ${comprobanteId}:`, error);
       setErrorMessage(`No se pudo actualizar el pago de la factura ${comprobanteId}.`);
