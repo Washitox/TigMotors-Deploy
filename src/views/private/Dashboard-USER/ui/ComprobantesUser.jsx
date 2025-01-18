@@ -105,37 +105,40 @@ export default function ComprobantesUser() {
                   </button>
                 </div>
 
-                {/* Filtro por estado de pago */}
-                <div className="mb-4">
-                  <label htmlFor="estadoPago" className="block text-sm font-medium">
-                    Estado de Pago
-                  </label>
-                  <select
-                    id="estadoPago"
-                    value={estadoPago}
-                    onChange={(e) => handleEstadoPagoChange(e.target.value)}
-                    className="bg-gray-700 text-white p-2 rounded border border-gray-600"
-                  >
-                    <option value="">Todos</option>
-                    <option value="PENDIENTE_PAGO">Pendiente de Pago</option>
-                    <option value="VALOR_PAGADO">Valor Pagado</option>
-                  </select>
-                </div>
+                <div className="flex gap-4 mb-4">
+                  {/* Filtro por estado de pago */}
+                  <div>
+                    <label htmlFor="estadoPago" className="block text-sm font-medium">
+                      Estado de Pago
+                    </label>
+                    <select
+                      id="estadoPago"
+                      value={estadoPago}
+                      onChange={(e) => handleEstadoPagoChange(e.target.value)}
+                      className="bg-gray-700 text-white p-2 rounded border border-gray-600"
+                    >
+                      <option value="">Todos</option>
+                      <option value="PENDIENTE_PAGO">Pendiente de Pago</option>
+                      <option value="VALOR_PAGADO">Valor Pagado</option>
+                    </select>
+                  </div>
 
-                <div>
-                  <label htmlFor="itemsPerPage" className="block text-sm font-medium">
-                    Mostrar
-                  </label>
-                  <select
-                    id="itemsPerPage"
-                    value={itemsPerPage}
-                    onChange={(e) => setItemsPerPage(Number(e.target.value))}
-                    className="bg-gray-700 text-white p-2 rounded border border-gray-600"
-                  >
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                  </select>
+                  {/* Selector de elementos por página */}
+                  <div>
+                    <label htmlFor="itemsPerPage" className="block text-sm font-medium">
+                      Mostrar
+                    </label>
+                    <select
+                      id="itemsPerPage"
+                      value={itemsPerPage}
+                      onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                      className="bg-gray-700 text-white p-2 rounded border border-gray-600"
+                    >
+                      <option value={5}>5</option>
+                      <option value={10}>10</option>
+                      <option value={15}>15</option>
+                    </select>
+                  </div>
                 </div>
 
 
