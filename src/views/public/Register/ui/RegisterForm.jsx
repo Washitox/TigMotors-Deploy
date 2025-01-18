@@ -25,13 +25,13 @@ export default function RegisterForm() {
   );
 
   const onSubmit = async (data) => {
-    setLoading(true); // Activa el spinner
+    setLoading(true);
     setSuccessMessage(null);
     setErrorMessage(null);
 
     const formattedData = {
       ...data,
-      phone_number: `+593${data.phone_number}`, // Agrega el prefijo
+      phone_number: `+593${data.phone_number}`,
     };
 
     try {
@@ -50,7 +50,7 @@ export default function RegisterForm() {
 
       // Espera 3 segundos antes de redirigir al usuario
       setTimeout(() => {
-        navigate('/'); // Redirige al landing
+        navigate('/'); 
       }, 3000);
     } catch (error) {
       // Manejo de errores del backend
@@ -106,8 +106,8 @@ export default function RegisterForm() {
                     minLength: { value: 5, message: 'Debe tener al menos 5 caracteres' },
                     maxLength: { value: 50, message: 'Debe tener como máximo 50 caracteres' },
                     pattern: {
-                      value: /^[A-Za-z]+$/,
-                      message: 'El nombre de usuario no puede contener números ni caracteres especiales',
+                      value: /^[A-Za-z0-9]+$/,
+                      message: 'El nombre de usuario no puede contener caracteres especiales',
                     },
                   })}
                   className="bg-gray-800 border-slate-900 text-white"
