@@ -13,6 +13,7 @@ export default function ComprobantesUser() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const isDesktop = useMediaQuery({ minWidth: 1025 });
 
+
   const getToken = () => localStorage.getItem("authToken");
 
   // Función para obtener todas las facturas
@@ -73,7 +74,7 @@ export default function ComprobantesUser() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
-
+  
   // Efecto inicial para cargar todas las facturas
   useEffect(() => {
     fetchFacturas();
@@ -120,6 +121,23 @@ export default function ComprobantesUser() {
                     <option value="VALOR_PAGADO">Valor Pagado</option>
                   </select>
                 </div>
+
+                <div>
+                  <label htmlFor="itemsPerPage" className="block text-sm font-medium">
+                    Mostrar
+                  </label>
+                  <select
+                    id="itemsPerPage"
+                    value={itemsPerPage}
+                    onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                    className="bg-gray-700 text-white p-2 rounded border border-gray-600"
+                  >
+                    <option value={5}>5</option>
+                    <option value={10}>10</option>
+                    <option value={15}>15</option>
+                  </select>
+                </div>
+
 
                 {/* Tabla de comprobantes */}
                 <div className="overflow-x-auto overflow-y-auto max-h-[400px] relative border rounded-lg">
