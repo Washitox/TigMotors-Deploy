@@ -308,7 +308,7 @@ function EstadoPago() {
                         <td className="p-2">{factura.estadoPago}</td>
                         <td className="p-2">
                             <button
-                            onClick={() => handleUpdatePago(factura.facturaId)}
+                            onClick={() => handleUpdatePago(factura.comprobanteId)}
                             className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
                             >
                             <FaCheck className="mr-2" /> Actualizar
