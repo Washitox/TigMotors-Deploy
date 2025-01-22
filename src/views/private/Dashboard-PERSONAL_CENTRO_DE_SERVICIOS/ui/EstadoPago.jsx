@@ -332,7 +332,7 @@ function EstadoPago() {
                             <button
                               onClick={() => handleUpdatePago(factura.comprobanteId)}
                               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-                              disabled={selectedPago[factura.facturaId] !== "VALOR_PAGADO"} // Habilita solo si se cambia a VALOR_PAGADO
+                              disabled={selectedPago[factura.comprobanteId] !== "VALOR_PAGADO"} // Habilita solo si se cambia a VALOR_PAGADO
                             >
                               Actualizar
                             </button>
