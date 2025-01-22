@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SidebarPersonal from "./SidebarPersonal";
 import HeaderPersonal from "./HeaderPersonal";
 import axios from "axios";
-import { FaCheck, FaFilter, FaTrash } from "react-icons/fa";
+import { FaFilter, FaTrash } from "react-icons/fa";
 import SoloDesktop from "./../../SoloDesktop";
 import { useMediaQuery } from "react-responsive";
 
@@ -21,6 +21,8 @@ function EstadoPago() {
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [usernames, setUsernames] = useState([]);
   const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [selectedPago, setSelectedPago] = useState({});
+
 
 
   const getToken = () => localStorage.getItem("authToken");
@@ -87,8 +89,9 @@ function EstadoPago() {
 
   const handleUpdatePago = async (facturaId) => {
     try {
-      if (!facturaId) {
-        setErrorMessage("ID del comprobante no definido.");
+      const nuevoEstado = selectedPago[facturaId];
+      if (!nuevoEstado) {
+        setErrorMessage("Debe seleccionar un nuevo estado de pago.");
         return;
       }
   
@@ -98,24 +101,24 @@ function EstadoPago() {
         return;
       }
   
-      const response = await axios.put(
+      await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${facturaId}/actualizar-pago`,
-        null,
+        { estadoPago: nuevoEstado }, // Enviar el nuevo estado
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
   
       setSuccessMessage(`Pago de la factura ${facturaId} actualizado con éxito.`);
-      fetchAllFacturas(); 
+      fetchAllFacturas(); // Refresca los datos
     } catch (error) {
       console.error(`Error al actualizar el pago de la factura ${facturaId}:`, error);
       setErrorMessage(`No se pudo actualizar el pago de la factura ${facturaId}.`);
-      setTimeout(() => setSuccessMessage(null), 5000);
+      setTimeout(() => setErrorMessage(null), 5000);
     }
   };
   
-
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -305,15 +308,39 @@ function EstadoPago() {
                         <td className="p-2">{factura.descripcionTrabajo}</td>
                         <td className="p-2">{factura.estadoTicket}</td>
                         <td className="p-2">${factura.cotizacion}</td>
-                        <td className="p-2">{factura.estadoPago}</td>
+
                         <td className="p-2">
-                            <button
-                            onClick={() => handleUpdatePago(factura.comprobanteId)}
-                            className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                          {factura.estadoPago === "PENDIENTE_PAGO" ? (
+                            <select
+                              value={selectedPago[factura.facturaId] || "PENDIENTE_PAGO"}
+                              onChange={(e) =>
+                                setSelectedPago((prev) => ({
+                                  ...prev,
+                                  [factura.facturaId]: e.target.value,
+                                }))
+                              }
+                              className="p-2 bg-gray-700 text-white rounded"
                             >
-                            <FaCheck className="mr-2" /> Actualizar
-                            </button>
+                              <option value="PENDIENTE_PAGO">PENDIENTE_PAGO</option>
+                              <option value="VALOR_PAGADO">VALOR_PAGADO</option>
+                            </select>
+                          ) : (
+                            "VALOR_PAGADO"
+                          )}
                         </td>
+
+                        <td className="p-2">
+                          {factura.estadoPago === "PENDIENTE_PAGO" && (
+                            <button
+                              onClick={() => handleUpdatePago(factura.facturaId)}
+                              className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
+                              disabled={selectedPago[factura.facturaId] !== "VALOR_PAGADO"} // Habilitar solo si cambia a VALOR_PAGADO
+                            >
+                              Actualizar
+                            </button>
+                          )}
+                        </td>
+
                         </tr>
                     ))}
                     </tbody>
