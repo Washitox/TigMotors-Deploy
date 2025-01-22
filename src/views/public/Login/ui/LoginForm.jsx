@@ -5,8 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { Spinner } from "keep-react";
-
+import { Spinner } from "keep-react"; // Importa el Spinner
 
 export default function SignIn() {
   const {
@@ -17,8 +16,8 @@ export default function SignIn() {
 
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [loading, setLoading] = useState(false); // Estado de carga
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); 
 
   const FormError = ({ message }) => (
     <div className="block font-medium text-red-500 text-sm">{message}</div>
@@ -26,7 +25,7 @@ export default function SignIn() {
 
   const onSubmit = async (data) => {
     setErrorMessage(null);
-    setLoading(true);
+    setLoading(true); // Activar el spinner
 
     try {
       const response = await axios.post(
@@ -43,7 +42,7 @@ export default function SignIn() {
       const decodedToken = jwtDecode(token);
       const userRole = decodedToken.roles[0]?.authority;
 
-      
+      // Guardar token y rol en localStorage
       localStorage.setItem("authToken", token);
       localStorage.setItem("userRole", userRole);
 
@@ -66,7 +65,8 @@ export default function SignIn() {
         error.response?.data?.message || "Error al iniciar sesión. Verifique sus credenciales."
       );
     } finally {
-      setLoading(false);
+      setLoading(false); // Desactivar el spinner
+    }
   };
 
   return (
@@ -77,7 +77,8 @@ export default function SignIn() {
           <h1 className="animate-[gradient_6s_linear_infinite] bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.indigo.200),theme(colors.gray.50),theme(colors.indigo.300),theme(colors.gray.200))] bg-[length:200%_auto] bg-clip-text font-nacelle text-3xl font-semibold text-transparent md:text-4xl">Inicio de sesión</h1>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[400px]">
-          {loading && (
+            {/* Mostrar el spinner durante la carga */}
+            {loading && (
               <div className="flex justify-center my-4">
                 <Spinner />
               </div>
@@ -136,5 +137,4 @@ export default function SignIn() {
       </div>
     </section>
   );
-}
 }
