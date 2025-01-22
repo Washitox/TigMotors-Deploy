@@ -255,17 +255,21 @@ function Trabajos() {
                       <td className="p-2">{ticket.username || "No disponible"}</td>
                       <td className="p-2">{ticket.solicitudId || "No disponible"}</td>
                       <td className="p-2">
-                      <select
-                        value={selectedStates[ticket.id] || ticket.estado}
-                        onChange={(e) =>
-                          setSelectedStates((prev) => ({ ...prev, [ticket.id]: e.target.value }))
-                        }
-                        className="bg-gray-700 text-white p-2 rounded"
-                      >
-                        <option value="TRABAJO_PENDIENTE">TRABAJO_PENDIENTE</option>
-                        <option value="TRABAJO_EN_PROGRESO">TRABAJO_EN_PROGRESO</option>
-                        <option value="TRABAJO_TERMINADO">TRABAJO_TERMINADO</option>
-                      </select>
+                        {ticket.estado === "TRABAJO_TERMINADO" ? (
+                          <span className="text-white">{ticket.estado}</span> 
+                        ) : (
+                          <select
+                            value={selectedStates[ticket.id] || ticket.estado}
+                            onChange={(e) =>
+                              setSelectedStates((prev) => ({ ...prev, [ticket.id]: e.target.value }))
+                            }
+                            className="bg-gray-700 text-white p-2 rounded"
+                          >
+                            <option value="TRABAJO_PENDIENTE">TRABAJO_PENDIENTE</option>
+                            <option value="TRABAJO_EN_PROGRESO">TRABAJO_EN_PROGRESO</option>
+                            <option value="TRABAJO_TERMINADO">TRABAJO_TERMINADO</option>
+                          </select>
+                        )}
                       </td>
                       <td className="p-1">{ticket.descripcionInicial || "No disponible"}</td>
                       <td className="p-1">{ticket.descripcionTrabajo || "No disponible"}</td>
@@ -276,14 +280,16 @@ function Trabajos() {
                           : "No disponible"}
                       </td>
                       <td className="p-1">
-                      <button
-                        onClick={() =>
-                          changeTicketStatus(ticket.id, selectedStates[ticket.id] || ticket.estado)
-                        }
-                        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
-                      >
-                        Actualizar
-                      </button>
+                        {ticket.estado !== "TRABAJO_TERMINADO" && (
+                          <button
+                            onClick={() =>
+                              changeTicketStatus(ticket.id, selectedStates[ticket.id] || ticket.estado)
+                            }
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                          >
+                            Actualizar
+                          </button>
+                        )}
                       </td>
                     </tr>
                   ))}
