@@ -310,7 +310,7 @@ function EstadoPago() {
                         <td className="p-2">
                           {factura.estadoPago === "PENDIENTE_PAGO" ? (
                             <select
-                              value={selectedPago[factura.facturaId] || factura.estadoPago}
+                              value={selectedPago[factura.comprobanteId] || factura.estadoPago}
                               onChange={(e) =>
                                 setSelectedPago((prev) => ({
                                   ...prev,
