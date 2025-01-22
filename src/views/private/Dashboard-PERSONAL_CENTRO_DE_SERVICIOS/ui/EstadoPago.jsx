@@ -90,8 +90,8 @@ function EstadoPago() {
   const handleUpdatePago = async (facturaId) => {
     try {
       const nuevoEstado = selectedPago[facturaId];
-      if (!nuevoEstado) {
-        setErrorMessage("Debe seleccionar un nuevo estado de pago.");
+      if (!nuevoEstado || nuevoEstado === "PENDIENTE_PAGO") {
+        setErrorMessage("Debe seleccionar un nuevo estado válido.");
         return;
       }
   
@@ -110,15 +110,13 @@ function EstadoPago() {
       );
   
       setSuccessMessage(`Pago de la factura ${facturaId} actualizado con éxito.`);
-      fetchAllFacturas(); // Refresca los datos
+      fetchAllFacturas(); // Refresca los datos después de actualizar
     } catch (error) {
       console.error(`Error al actualizar el pago de la factura ${facturaId}:`, error);
       setErrorMessage(`No se pudo actualizar el pago de la factura ${facturaId}.`);
       setTimeout(() => setErrorMessage(null), 5000);
     }
-  };
-  
-  
+  };  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -312,7 +310,7 @@ function EstadoPago() {
                         <td className="p-2">
                           {factura.estadoPago === "PENDIENTE_PAGO" ? (
                             <select
-                              value={selectedPago[factura.facturaId] || "PENDIENTE_PAGO"}
+                              value={selectedPago[factura.facturaId] || factura.estadoPago}
                               onChange={(e) =>
                                 setSelectedPago((prev) => ({
                                   ...prev,
@@ -334,12 +332,13 @@ function EstadoPago() {
                             <button
                               onClick={() => handleUpdatePago(factura.facturaId)}
                               className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded"
-                              disabled={selectedPago[factura.facturaId] !== "VALOR_PAGADO"} // Habilitar solo si cambia a VALOR_PAGADO
+                              disabled={selectedPago[factura.facturaId] !== "VALOR_PAGADO"} // Habilita solo si se cambia a VALOR_PAGADO
                             >
                               Actualizar
                             </button>
                           )}
                         </td>
+
 
                         </tr>
                     ))}
