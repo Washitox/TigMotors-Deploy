@@ -85,9 +85,9 @@ function EstadoPago() {
     }
   };
 
-  const handleUpdatePago = async (comprobanteId) => {
+  const handleUpdatePago = async (facturaId) => {
     try {
-      if (!comprobanteId) {
+      if (!facturaId) {
         setErrorMessage("ID del comprobante no definido.");
         return;
       }
@@ -99,18 +99,18 @@ function EstadoPago() {
       }
   
       const response = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${comprobanteId}/actualizar-pago`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/staff-cds/${facturaId}/actualizar-pago`,
         null,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
   
-      setSuccessMessage(`Pago de la factura ${comprobanteId} actualizado con éxito.`);
+      setSuccessMessage(`Pago de la factura ${cfacturaId} actualizado con éxito.`);
       fetchAllFacturas(); 
     } catch (error) {
-      console.error(`Error al actualizar el pago de la factura ${comprobanteId}:`, error);
-      setErrorMessage(`No se pudo actualizar el pago de la factura ${comprobanteId}.`);
+      console.error(`Error al actualizar el pago de la factura ${facturaId}:`, error);
+      setErrorMessage(`No se pudo actualizar el pago de la factura ${facturaId}.`);
       setTimeout(() => setSuccessMessage(null), 5000);
     }
   };
