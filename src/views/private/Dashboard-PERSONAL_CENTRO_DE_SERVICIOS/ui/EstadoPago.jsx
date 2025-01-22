@@ -314,7 +314,7 @@ function EstadoPago() {
                               onChange={(e) =>
                                 setSelectedPago((prev) => ({
                                   ...prev,
-                                  [factura.facturaId]: e.target.value,
+                                  [factura.comprobanteId]: e.target.value,
                                 }))
                               }
                               className="p-2 bg-gray-700 text-white rounded"
