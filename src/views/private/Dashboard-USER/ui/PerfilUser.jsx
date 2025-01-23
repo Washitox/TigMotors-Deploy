@@ -37,8 +37,7 @@ function PerfilUser() {
   const [confirmDelete, setConfirmDelete] = useState(false); // Checkbox para confirmar
   const navigate = useNavigate();
   const isDesktop = useMediaQuery({ minWidth: 1025 });
-
-
+  const [editingField, setEditingField] = useState(null); // Campo activo en edición
 
 
   const getToken = () => localStorage.getItem("authToken");
@@ -113,12 +112,13 @@ function PerfilUser() {
   
 
   const handleEditField = (field) => {
+    setEditingField(field);
     setEditableFields((prev) => ({
       ...prev,
       [field]: userInfo[field],
     }));
-    setIsEditing(true);
   };
+  
 
   const handleFieldChange = (field, value) => {
     setEditableFields((prev) => ({
@@ -221,6 +221,27 @@ function PerfilUser() {
     fetchUserInfo();
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        editingField &&
+        !event.target.closest(".editable-field") // Verifica si el clic fue fuera del campo editable
+      ) {
+        setEditableFields((prev) => ({
+          ...prev,
+          [editingField]: userInfo[editingField], // Restaura el valor original
+        }));
+        setEditingField(null); // Finaliza el modo de edición
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editingField, userInfo]);
+  
+
   return (
     <div>
     {isDesktop ? (
@@ -255,12 +276,17 @@ function PerfilUser() {
                       ? "Correo Electrónico"
                       : "Teléfono"}
                   </label>
-                  <div className="flex items-center gap-2">
-                    {editableFields[field] !== undefined ? (
+                  <div className="flex items-center gap-2 editable-field">
+                    {editingField === field ? (
                       <input
                         type="text"
                         value={editableFields[field]}
-                        onChange={(e) => handleFieldChange(field, e.target.value)}
+                        onChange={(e) =>
+                          setEditableFields((prev) => ({
+                            ...prev,
+                            [field]: e.target.value,
+                          }))
+                        }
                         className="w-full bg-gray-700 text-white p-2 rounded border border-gray-600"
                       />
                     ) : (
@@ -270,7 +296,7 @@ function PerfilUser() {
                     )}
                     <button
                       onClick={() =>
-                        editableFields[field] !== undefined
+                        editingField === field
                           ? handleSaveField()
                           : handleEditField(field)
                       }
