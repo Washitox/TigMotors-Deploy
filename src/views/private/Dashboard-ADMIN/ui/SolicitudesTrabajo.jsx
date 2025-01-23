@@ -130,9 +130,10 @@ function SolicitudesTrabajo() {
     try {
       const token = getToken();
       if (!token) {
-        setErrorMessage("Sesión expirada. Por favor, inicia sesión nuevamente.");
+        setMessage({ text: "Sesión expirada. Por favor, inicia sesión nuevamente.", type: "error" });
         return;
       }
+  
       await axios.put(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/rechazar-solicitud/${idSolicitud}`,
         {},
@@ -140,14 +141,19 @@ function SolicitudesTrabajo() {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      fetchSolicitudes();
-      setErrorMessage(null);
+  
+      fetchSolicitudes(); // Recarga las solicitudes después de rechazar
+      setMessage({ text: "Solicitud rechazada con éxito.", type: "success" });
     } catch (error) {
       console.error("Error al rechazar la solicitud:", error);
-      setErrorMessage("Error al rechazar la solicitud.");
-      setTimeout(() => setSuccessMessage(null), 3000);
+      setMessage({ 
+        text: error.response?.data?.message || "Error al rechazar la solicitud.", 
+        type: "error" 
+      });
     }
   };
+  
+  
 
   const handleDelete = async (idSolicitud) => {
     try {
