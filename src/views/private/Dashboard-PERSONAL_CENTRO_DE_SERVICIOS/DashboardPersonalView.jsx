@@ -27,7 +27,8 @@ function DashboardPersonalView() {
               Panel del personal de servicios
             </h1>
             <p className="mt-4 text-white text-center">
-              El servicio del personal es el contacto de los usuarios con la página, trabajos y generar reportes.
+              El servicio del personal es el contacto de los usuarios con la página, trabajos y generar reportes. 
+              La estadistica de tickets se encuentra en la pestaña de perfil.
             </p>
           </div>
 

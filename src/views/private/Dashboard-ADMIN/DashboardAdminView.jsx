@@ -41,6 +41,7 @@ export default function DashboardAdminView() {
           <p className="mt-4 text-center md:text-left">
             Aquí puedes gestionar todos los trabajos como registrarlos y recibir solicitudes de trabajos.
             También con los usuarios puedes aprobarlos, eliminarlos o registrarlos.
+            Las estadisticas se pueden visualizar en la pestaña de perfil.
           </p>
         </div>
   
