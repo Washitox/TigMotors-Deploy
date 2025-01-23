@@ -40,6 +40,24 @@ const SolicitarTrabajoUser = () => {
     filterSolicitudes();
   }, [solicitudes, searchTerm, statusFilter]);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      // Verifica si el clic ocurre fuera de la fila editable
+      if (
+        editingSolicitud !== null &&
+        !event.target.closest(".editable-row")
+      ) {
+        setEditingSolicitud(null);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleClickOutside);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [editingSolicitud]);  
+
   const fetchSolicitudes = async () => {
     setIsLoading(true);
     try {
@@ -296,21 +314,25 @@ const SolicitarTrabajoUser = () => {
                   >
                       <td className="px-1 py-2 ">{sol.idSolicitud}</td>
                       <td className="px-1 py-2">
-                        {editingSolicitud === sol.idSolicitud ? (
-                          <input
-                            type="text"
-                            value={editedDescriptions[sol.idSolicitud] || sol.descripcionInicial}
-                            onChange={(e) =>
-                              setEditedDescriptions({
-                                ...editedDescriptions,
-                                [sol.idSolicitud]: e.target.value,
-                              })
-                            }
-                            className="bg-gray-700 text-white p-2 rounded"
-                          />
-                        ) : (
-                          sol.descripcionInicial
-                        )}
+                      <td className="px-1 py-2">
+                        <div className="editable-row">
+                          {editingSolicitud === sol.idSolicitud ? (
+                            <input
+                              type="text"
+                              value={editedDescriptions[sol.idSolicitud] || sol.descripcionInicial}
+                              onChange={(e) =>
+                                setEditedDescriptions({
+                                  ...editedDescriptions,
+                                  [sol.idSolicitud]: e.target.value,
+                                })
+                              }
+                              className="bg-gray-700 text-white p-2 rounded"
+                            />
+                          ) : (
+                            sol.descripcionInicial
+                          )}
+                        </div>
+                      </td>
                       </td>
                       <td className="px-1 py-3">{sol.descripcionTrabajo || "En espera"}</td>
                       <td className="px-1 py-3">{sol.estado}</td>
