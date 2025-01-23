@@ -56,16 +56,24 @@ function SolicitudesTrabajo() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (filterRef.current && !filterRef.current.contains(event.target)) {
-        setShowFilterBox(false);
+      // Verifica si el clic fue fuera del contenedor editable y de la fila activa
+      if (
+        editingRow !== null &&
+        !event.target.closest(".editable-row")
+      ) {
+        setEditingRow(null);
       }
     };
-
+  
+    // Agrega el evento al documento
     document.addEventListener("mousedown", handleClickOutside);
+  
+    // Limpia el evento al desmontar el componente
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [editingRow]);
+  
 
   const handleEdit = (idSolicitud) => {
     setEditingRow(idSolicitud);
@@ -323,29 +331,35 @@ function SolicitudesTrabajo() {
                       <td className="p-3">{solicitud.username}</td>
                       <td className="p-3">{solicitud.descripcionInicial}</td>
                       <td className="p-3">
-                        {editingRow === solicitud.idSolicitud ? (
-                          <input
-                            type="text"
-                            name="descripcionTrabajo"
-                            value={editedValues.descripcionTrabajo}
-                            onChange={handleInputChange}
-                            className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
-                          />
-                        ) : (
-                          solicitud.descripcionTrabajo || "N/A"
-                        )}
+                      <div className="editable-row">
+                          {editingRow === solicitud.idSolicitud ? (
+                            <input
+                              type="text"
+                              name="descripcionTrabajo"
+                              value={editedValues.descripcionTrabajo}
+                              onChange={handleInputChange}
+                              className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
+                            />
+                          ) : (
+                            solicitud.descripcionTrabajo || "N/A"
+                          )}
+                        </div>
                       </td>
                       <td className="p-1">{solicitud.estado}</td>
                       <td className="p-3">
-                        {editingRow === solicitud.idSolicitud ? (
-                          <input
-                            type="number"
-                            name="cotizacion"
-                            value={editedValues.cotizacion}
-                            onChange={handleInputChange}
-                            className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
-                          />
-                        ) : solicitud.cotizacion || "N/A"}
+                      <div className="editable-row">
+                          {editingRow === solicitud.idSolicitud ? (
+                            <input
+                              type="number"
+                              name="cotizacion"
+                              value={editedValues.cotizacion}
+                              onChange={handleInputChange}
+                              className="bg-gray-700 text-white py-1 px-3 rounded text-sm md:text-base"
+                            />
+                          ) : (
+                            solicitud.cotizacion || "N/A"
+                          )}
+                        </div>
                       </td>
                       <td className="p-1">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
                       <td className="p-3">{solicitud.fechaCreacion}</td>
