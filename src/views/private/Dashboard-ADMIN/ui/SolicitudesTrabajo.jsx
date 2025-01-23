@@ -344,14 +344,15 @@ function SolicitudesTrabajo() {
                       <td className="p-1">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
                       <td className="p-3">{solicitud.fechaCreacion}</td>
                       <td className="p-3 flex justify-around items-center space-x-2">
-                        {(solicitud.cotizacion === "N/A" || !solicitud.cotizacion) && editingRow !== solicitud.idSolicitud && (
-                          <button
-                            onClick={() => handleEdit(solicitud.idSolicitud)}
-                            className="w-24 py-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded"
-                          >
-                            Editar
-                          </button>
-                        )}
+                        {(solicitud.cotizacion === "N/A" || !solicitud.cotizacion) &&
+                          editingRow !== solicitud.idSolicitud && (
+                            <button
+                              onClick={() => handleEdit(solicitud.idSolicitud)}
+                              className="w-24 py-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded"
+                            >
+                              Editar
+                            </button>
+                          )}
                         {editingRow === solicitud.idSolicitud && (
                           <button
                             onClick={() => handleSave(solicitud.idSolicitud)}
@@ -360,12 +361,15 @@ function SolicitudesTrabajo() {
                             Enviar
                           </button>
                         )}
-                        <button
-                          onClick={() => handleReject(solicitud.idSolicitud)}
-                          className="w-24 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-bold rounded"
-                        >
-                          Rechazar
-                        </button>
+                        {solicitud.cotizacionAceptada !== "COTIZACION_ACEPTADA" &&
+                          solicitud.cotizacionAceptada !== "RECHAZO_COTIZACION_USUARIO" && (
+                            <button
+                              onClick={() => handleReject(solicitud.idSolicitud)}
+                              className="w-24 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-bold rounded"
+                            >
+                              Rechazar
+                            </button>
+                          )}
                         <button
                           onClick={() => handleDelete(solicitud.idSolicitud)}
                           className="w-24 py-2 text-center bg-gray-500 hover:bg-gray-600 text-white font-bold rounded"
@@ -373,15 +377,12 @@ function SolicitudesTrabajo() {
                           Eliminar
                         </button>
                       </td>
-
-
                     </tr>
                   ))}
                 </tbody>
               </table>
               </div>
             </div>
-
             <div className="flex flex-wrap justify-between items-center gap-4 mt-4">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
