@@ -350,15 +350,16 @@ function SolicitudesTrabajo() {
                       <td className="p-1">{solicitud.cotizacionAceptada || "No Aceptada"}</td>
                       <td className="p-3">{solicitud.fechaCreacion}</td>
                       <td className="p-3 flex justify-around items-center space-x-2">
-                        {(solicitud.cotizacion === "N/A" || !solicitud.cotizacion) &&
-                          editingRow !== solicitud.idSolicitud && (
-                            <button
-                              onClick={() => handleEdit(solicitud.idSolicitud)}
-                              className="w-24 py-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded"
-                            >
-                              Editar
-                            </button>
-                          )}
+                      {(solicitud.cotizacion === "N/A" || !solicitud.cotizacion) &&
+                        editingRow !== solicitud.idSolicitud &&
+                        solicitud.estado !== "SOLICITUD_RECHAZADA" && (
+                          <button
+                            onClick={() => handleEdit(solicitud.idSolicitud)}
+                            className="w-24 py-2 text-center bg-yellow-500 hover:bg-yellow-600 text-white font-bold rounded"
+                          >
+                            Editar
+                          </button>
+                        )}
                         {editingRow === solicitud.idSolicitud && (
                           <button
                             onClick={() => handleSave(solicitud.idSolicitud)}
