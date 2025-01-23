@@ -14,92 +14,67 @@ function TrabajosUser() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const isDesktop = useMediaQuery({ minWidth: 1025 });
+  const [originalTrabajos, setOriginalTrabajos] = useState([]);
+
 
 
   const getToken = () => localStorage.getItem("authToken");
-
-  // Función para obtener trabajos según prioridad
-  const fetchByPrioridad = async (prioridad) => {
-    try {
-      const token = getToken();
-      if (!token) {
-        setErrorMessage("Sesión expirada. Por favor, inicie sesión nuevamente.");
-        return;
-      }
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api-user/prioridad-ticket/${prioridad}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setTrabajos(response.data);
-      setErrorMessage(null); // Limpiar mensajes de error
-    } catch (error) {
-      console.error("Error al filtrar por prioridad:", error);
-      setErrorMessage("No se pudieron cargar los trabajos por prioridad.");
-    }
-  };
-
-  // Función para obtener trabajos según estado
-  const fetchByEstado = async (estado) => {
-    try {
-      const token = getToken();
-      if (!token) {
-        setErrorMessage("Sesión expirada. Por favor, inicie sesión nuevamente.");
-        return;
-      }
-
-      const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api-user/estado-ticket/${estado}`,
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      setTrabajos(response.data);
-      setErrorMessage(null); // Limpiar mensajes de error
-    } catch (error) {
-      console.error("Error al filtrar por estado:", error);
-      setErrorMessage("No se pudieron cargar los trabajos por estado.");
-    }
-  };
-
-  // Función para manejar el cambio en el filtro de prioridad
+  
   const handlePrioridadChange = (prioridad) => {
     setPrioridadFilter(prioridad);
-    if (prioridad) {
-      fetchByPrioridad(prioridad);
-    } else {
-      fetchTrabajos(); // Si no hay prioridad seleccionada, cargar todos
-    }
+    applyFilters({ prioridad, estado: estadoFilter }); // Aplica ambos filtros
   };
-
-  // Función para manejar el cambio en el filtro de estado
+  
   const handleEstadoChange = (estado) => {
     setEstadoFilter(estado);
-    if (estado) {
-      fetchByEstado(estado);
-    } else {
-      fetchTrabajos(); // Si no hay estado seleccionado, cargar todos
-    }
+    applyFilters({ prioridad: prioridadFilter, estado }); // Aplica ambos filtros
   };
+
+  const applyFilters = ({ prioridad, estado }) => {
+    let filteredData = [...originalTrabajos]; // Siempre parte de los datos originales
+  
+    if (prioridad) {
+      filteredData = filteredData.filter((trabajo) => trabajo.prioridad === prioridad);
+    }
+  
+    if (estado) {
+      filteredData = filteredData.filter((trabajo) => trabajo.estado === estado);
+    }
+  
+    setTrabajos(filteredData); // Actualiza los trabajos con los datos filtrados
+  };
+  
+  
 
   // Función para obtener todos los trabajos
   const fetchTrabajos = async () => {
     try {
+      // Restablecer los filtros antes de recargar
+      setPrioridadFilter(""); // Reinicia prioridad a "Todas"
+      setEstadoFilter(""); // Reinicia estado a "Todos"
+  
       const token = getToken();
       if (!token) {
         setErrorMessage("Sesión expirada. Por favor, inicie sesión nuevamente.");
         return;
       }
-
+  
       const response = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}/api-user/historial-solicitud`,
+        `${import.meta.env.VITE_BACKEND_URL}/api-user/historial-tickets`,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      setTrabajos(response.data);
+  
+      setOriginalTrabajos(response.data); // Recarga todos los datos originales
+      setTrabajos(response.data); // Inicializa la tabla con todos los datos
       setErrorMessage(null); // Limpiar mensajes de error
+      setCurrentPage(1); // Restablecer a la primera página
     } catch (error) {
       console.error("Error al obtener trabajos:", error);
       setErrorMessage("No se pudieron cargar los trabajos.");
     }
   };
+  
+  
 
   // Paginación
   const totalPages = Math.ceil(trabajos.length / itemsPerPage);
@@ -111,7 +86,7 @@ function TrabajosUser() {
   // Efecto inicial para cargar todos los trabajos
   useEffect(() => {
     fetchTrabajos();
-  }, []);
+  }, []);  
 
   return (
     <div>
@@ -200,7 +175,6 @@ function TrabajosUser() {
                 <thead className="bg-gray-900 sticky top-0 z-10">
                   <tr>
                     <th className="p-3">ID Ticket</th>
-                    <th className="p-3">Usuario</th>
                     <th className="p-3">ID Solicitud</th>
                     <th className="p-3">Prioridad</th>
                     <th className="p-3">Estado</th>
@@ -216,7 +190,6 @@ function TrabajosUser() {
                       className={idx % 2 === 0 ? "bg-gray-600" : "bg-gray-700"}
                     >
                       <td className="p-3">{trabajo.id || "N/A"}</td>
-                      <td className="p-3">{trabajo.username || "N/A"}</td>
                       <td className="p-3">{trabajo.solicitudId || "N/A"}</td>
                       <td className="p-3">{trabajo.prioridad || "N/A"}</td>
                       <td className="p-3">{trabajo.estado || "N/A"}</td>
