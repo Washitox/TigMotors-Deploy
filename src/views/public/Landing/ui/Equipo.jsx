@@ -1,10 +1,11 @@
 import React from "react";
 import jefe from "../../../../assets/images/Jefe_TigMotors.png";
-import secretaria from "../../../../assets/images/Secretaria_TigMotors.jpg";
+import secretaria from "../../../../assets/images/Secretaria_TigMotors.png";
 import transportador from "../../../../assets/images/Transportador_TigMotors.png";
 import trabajador from "../../../../assets/images/Trabajador_TigMotors.png";
 import frontend from "../../../../assets/images/Frontend_TigMotors.png";
 import backend from "../../../../assets/images/Backend_TigMotors.png";
+import MascotaTig from "./MascotaTig";
 
 const equipo = [
   {
@@ -14,7 +15,7 @@ const equipo = [
     foto: jefe,
   },
   {
-    nombre: "Secretaria",
+    nombre: "Secretaria/Jefa",
     descripcion:
       "Encargada de la administración y la gestión de reportes para los clientes, garantizando un servicio ordenado y eficiente.",
     foto: secretaria,
@@ -28,7 +29,7 @@ const equipo = [
   {
     nombre: "Trabajador",
     descripcion:
-      "Especialista en el tratamiento de cabezotes y blocs, realiza cepillados y generación de piezas previas a la soldadura.",
+      "Especialista en el tratamiento de cabezotes y blocks, realiza cepillados y generación de piezas previas a la soldadura.",
     foto: trabajador,
   },
   {
@@ -67,13 +68,18 @@ export default function Equipo() {
           ))}
         </div>
 
-        {/* Línea divisoria */}
-      <hr className="my-8 border-gray-700" />
+      
+          <MascotaTig/>
 
-        <p className="text-gray-400 text-sm">
-              © {new Date().getFullYear()} Tig Motors. Todos los derechos
-              reservados.
-            </p>
+        {/* Línea divisoria */}
+        <hr className="my-8 border-gray-700 w-full" />
+
+        {/* Pie de página alineado a la izquierda */}
+        <p className="text-gray-400 text-sm text-left">
+          © {new Date().getFullYear()} Tig Motors. Todos los derechos reservados.
+        </p>
+
+
               </div>
 
       
