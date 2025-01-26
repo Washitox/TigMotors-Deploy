@@ -49,9 +49,9 @@ function Usuarios() {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/admin/lista-usuarios`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setUsers(response.data); // Actualiza el estado con los usuarios obtenidos
-      setCurrentPage(1); // Reinicia la paginación a la primera página
-      setSearchTerm(""); // Limpia el campo de búsqueda
+      setUsers(response.data);
+      setCurrentPage(1);
+      setSearchTerm(""); 
       console.log("Usuarios actualizados:", response.data);
     } catch (error) {
       console.error("Error al obtener usuarios:", error);
@@ -68,22 +68,25 @@ function Usuarios() {
       }
   
       if (!window.confirm(`¿Estás seguro de que deseas eliminar al usuario con ID ${id}?`)) {
-        return; // Cancelar la acción si el usuario no confirma
+        return;
       }
   
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`,   
-        { userId: id }, // Enviar el cuerpo en formato JSON
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, 
+        null,
         {
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
+          params: {
+            param: id, // Enviar el ID como parámetro en la query string
+          },
         }
       );
   
       setSuccessMessage(`Usuario con ID ${id} eliminado correctamente.`);
-      fetchUsers(); // Actualiza la lista de usuarios
+      fetchUsers(); // Actualiza la lista de usuarios después de eliminar
     } catch (error) {
       console.error("Error al eliminar usuario:", error);
       setErrorMessage(

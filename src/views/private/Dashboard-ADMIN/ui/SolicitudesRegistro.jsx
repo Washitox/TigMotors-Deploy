@@ -88,26 +88,38 @@ export default function SolicitudesRegistro() {
     setSuccessMessage(null);
     setErrorMessage(null);
     setIsFetching(true);
+  
     try {
-      const token = getToken();
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`,
-        { userId: id },
-        { headers: { Authorization: `Bearer ${token}` } }
+      const token = getToken(); // Obtén el token del almacenamiento local
+  
+      // Realiza la solicitud DELETE
+      await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, 
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          params: { param: id }, // Agrega el parámetro como query
+        }
       );
-      setSolicitudes((prev) =>
-        prev.filter((solicitud) => solicitud.id !== id)
-      );
+  
+      // Actualiza la lista de solicitudes después de eliminar
+      setSolicitudes((prev) => prev.filter((solicitud) => solicitud.id !== id));
+  
+      // Mensaje de éxito
       setSuccessMessage("Usuario eliminado correctamente.");
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error) {
       console.error("Error al eliminar usuario:", error);
-      setErrorMessage("Error al eliminar el usuario.");
-      setTimeout(() => setSuccessMessage(null), 3000);
+  
+      // Manejo de errores
+      setErrorMessage(
+        error.response?.data?.message || "Error al eliminar el usuario."
+      );
+      setTimeout(() => setErrorMessage(null), 3000);
     } finally {
       setIsFetching(false);
     }
   };
+  
 
   const filteredSolicitudes = handleSearch();
   const totalPages = Math.ceil(filteredSolicitudes.length / entries);
