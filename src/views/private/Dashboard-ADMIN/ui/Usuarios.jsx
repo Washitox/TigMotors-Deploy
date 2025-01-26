@@ -71,7 +71,7 @@ function Usuarios() {
         return;
       }
   
-      await axios.delete(
+      await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, 
         null,
         {
