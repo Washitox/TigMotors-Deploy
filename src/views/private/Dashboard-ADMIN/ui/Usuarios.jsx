@@ -61,41 +61,42 @@ function Usuarios() {
   
   const deleteUser = async (id) => {
     try {
-      const token = getToken();
+      const token = getToken(); // Obtiene el token de autenticación del localStorage
       if (!token) {
         setErrorMessage("Token de autenticación no encontrado.");
         return;
       }
   
+      // Confirmación de la eliminación
       if (!window.confirm(`¿Estás seguro de que deseas eliminar al usuario con ID ${id}?`)) {
         return;
       }
   
-      await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, 
-        null,
+      // Solicitud DELETE al backend con el parámetro en la query string
+      const response = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, // Endpoint base
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
           params: {
-            param: id, // Enviar el ID como parámetro en la query string
+            param: id, // Agregar el ID como query string
           },
         }
       );
   
+      // Mostrar mensaje de éxito y actualizar la lista
       setSuccessMessage(`Usuario con ID ${id} eliminado correctamente.`);
       fetchUsers(); // Actualiza la lista de usuarios después de eliminar
     } catch (error) {
       console.error("Error al eliminar usuario:", error);
+  
+      // Muestra el mensaje de error devuelto por el backend, si está disponible
       setErrorMessage(
         error.response?.data?.message || "Error al eliminar el usuario. Intente nuevamente."
       );
-      setTimeout(() => setSuccessMessage(null), 3000);
     }
-  };
-  
+  };  
   
 
   const updateUserData = async (id, field, value) => {

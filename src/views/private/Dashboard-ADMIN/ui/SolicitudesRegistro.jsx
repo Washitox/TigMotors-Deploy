@@ -97,7 +97,7 @@ export default function SolicitudesRegistro() {
         `${import.meta.env.VITE_BACKEND_URL}/api/admin/eliminar-usuarios`, 
         {
           headers: { Authorization: `Bearer ${token}` },
-          params: { param: id }, // Agrega el parámetro como query
+          params: { param: id },
         }
       );
   
