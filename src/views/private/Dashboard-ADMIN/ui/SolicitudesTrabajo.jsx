@@ -56,23 +56,23 @@ function SolicitudesTrabajo() {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Verifica si el clic fue fuera del contenedor editable y de la fila activa
+      
       if (
         editingRow !== null &&
-        !event.target.closest(".editable-row")
+        !event.target.closest(".editable-row") &&
+        !event.target.closest(".action-buttons") 
       ) {
         setEditingRow(null);
       }
     };
   
-    // Agrega el evento al documento
     document.addEventListener("mousedown", handleClickOutside);
   
-    // Limpia el evento al desmontar el componente
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [editingRow]);
+  
   
 
   const handleEdit = (idSolicitud) => {
@@ -377,7 +377,7 @@ function SolicitudesTrabajo() {
                         {editingRow === solicitud.idSolicitud && (
                           <button
                             onClick={() => handleSave(solicitud.idSolicitud)}
-                            className="w-24 py-2 text-center bg-green-500 hover:bg-green-600 text-white font-bold rounded"
+                            className="w-24 py-2 text-center bg-green-500 hover:bg-green-600 text-white font-bold rounded action-buttons"
                           >
                             Enviar
                           </button>
@@ -385,12 +385,12 @@ function SolicitudesTrabajo() {
                         {solicitud.cotizacionAceptada !== "COTIZACION_ACEPTADA" &&
                         solicitud.cotizacionAceptada !== "RECHAZO_COTIZACION_USUARIO" &&
                         solicitud.estado !== "SOLICITUD_RECHAZADA" && (
-                            <button
-                              onClick={() => handleReject(solicitud.idSolicitud)}
-                              className="w-24 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-bold rounded"
-                            >
-                              Rechazar
-                            </button>
+                          <button
+                          onClick={() => handleReject(solicitud.idSolicitud)}
+                          className="w-24 py-2 text-center bg-red-500 hover:bg-red-600 text-white font-bold rounded action-buttons"
+                        >
+                          Rechazar
+                        </button>
                         )}
                         <button
                           onClick={() => handleDelete(solicitud.idSolicitud)}
