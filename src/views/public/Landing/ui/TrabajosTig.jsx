@@ -13,6 +13,9 @@ import tintas from "../../../../assets/images/Colocación de tintes.png"
 import asesoria from "../../../../assets/images/Asesoria de sueldas.png"
 import lavado from "../../../../assets/images/Limpieza de blocks.png"
 import transporte from "../../../../assets/images/Servicio de transporte.png"
+import fisura from "../../../../assets/images/Fisura.png"
+import cepilladoCompleto from "../../../../assets/images/Cepillado completo.png"
+import maquinas from "../../../../assets/images/Maquinas especializadas.png"
 import "slick-carousel/slick/slick.css"; 
 import "slick-carousel/slick/slick-theme.css";
 
@@ -30,7 +33,7 @@ export default function TrabajosTig() {
     },
     {
       title: "Pruebas Hidrostática",
-      images: [verificacion, diagnostico], 
+      images: [verificacion, diagnostico, fisura], 
       description: [
         "Verificación",
         "Diagnóstico",
@@ -39,13 +42,19 @@ export default function TrabajosTig() {
     },
     {
       title: "Cepillados",
-      images: [cepillados],
-      description: ["Nivelación de superficies"],
+      images: [cepillados, cepilladoCompleto],
+      description: [
+        "Nivelación de superficies",
+        "Proceso"
+      ],
     },
     {
       title: "Torno",
-      images: [fabricacion], 
-      description: ["Fabricación de piezas"],
+      images: [fabricacion, maquinas], 
+      description: [
+        "Fabricación de piezas",
+        "Maquinas especializadas"
+      ],
     },
     {
       title: "Extras",
