@@ -42,6 +42,12 @@ export default function EstatusSolicitudes() {
 
   useEffect(() => {
     fetchStatusData();
+
+    // Configurar un intervalo para actualizar los datos en tiempo real
+    const interval = setInterval(() => {
+      fetchStatusData();
+    }, 15000); // Actualiza cada 15 segundos
+
   }, []);
 
   const chartData = {
