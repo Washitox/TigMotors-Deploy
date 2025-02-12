@@ -1,4 +1,4 @@
-# 🚀 TigMotors - Sistema de Gestión de Usuarios, Solicitudes, Tickets y Facturas (Frontend)
+# 🚀 TigMotors - Sistema de Gestión de Usuarios, Solicitudes, Tickets y Comprobantes (Frontend)
 
 Este proyecto es la interfaz de usuario del sistema **TigMotors**, desarrollado con **React + Vite**. Permite a los usuarios interactuar con la plataforma, gestionar solicitudes, tickets y comprobantes de pago, con un diseño responsivo y una navegación fluida.
 
@@ -76,15 +76,15 @@ Para ejecutar este proyecto en tu entorno local, sigue estos pasos:
 ## 🛡️ Roles en el Sistema
 
 ### 👑 ADMIN
-- Gestión completa de usuarios, solicitudes, tickets y facturas.
+- Gestión completa de usuarios, solicitudes y tickets.
 - Información Personal.
 
 ### 🏢 PERSONAL_CENTRO_DE_SERVICIOS
-- Administración de tickets y facturas.
+- Administración de tickets y comprobantes.
 - Información Personal.
 
 ### 👤 USER
-- Gestión de solicitudes y visualización de tickets y facturas.
+- Gestión de solicitudes y visualización de tickets y comprobantes.
 - Información Personal.
 
 ---
