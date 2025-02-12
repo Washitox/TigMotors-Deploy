@@ -48,6 +48,11 @@ export default function EstatusTickets() {
 
   useEffect(() => {
     fetchTicketData();
+
+    // Configurar un intervalo para actualizar los datos en tiempo real
+    const interval = setInterval(() => {
+      fetchTicketData();
+    }, 15000); // Actualiza cada 15 segundos
   }, []);
 
   const chartData = {
