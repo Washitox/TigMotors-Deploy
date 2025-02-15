@@ -1,23 +1,24 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaBriefcase, FaFileAlt, FaUser, FaUsers, FaMoneyCheckAlt } from "react-icons/fa"; // Importar el nuevo icono
+import { FaBriefcase, FaFileAlt, FaCog, FaUsers, FaMoneyCheckAlt } from "react-icons/fa"; // Importar el nuevo icono
 
 function SidebarPersonal() {
   const location = useLocation();
 
   // Opciones del menú
   const menuItems = [
+    { name: "Perfil", path: "/personal/perfil", icon: <FaCog /> }, 
     { name: "Trabajos", path: "/personal/trabajos", icon: <FaBriefcase /> },
     { name: "Estado de Pago", path: "/personal/estado-pago", icon: <FaMoneyCheckAlt /> }, // Nueva sección
     { name: "Usuarios", path: "/personal/usuarios", icon: <FaUsers /> },
     { name: "Generar Reportes", path: "/personal/reportes", icon: <FaFileAlt /> },
-    { name: "Perfil", path: "/personal/perfil", icon: <FaUser /> },
+    
   ];
 
   return (
-    <aside className="w-64 bg-gray-800 min-h-full flex flex-col">
+    <aside className="w-64 bg-gray-800 min-h-full flex flex-col rounded-r-lg">
       {/* Encabezado del sidebar */}
-      <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white">
+      <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white ">
         TigMotors Personal
       </div>
 

@@ -220,7 +220,7 @@ function SolicitudesTrabajo() {
         <main className="p-6 flex-1 overflow-auto">
           <div className="bg-gray-800 p-6 rounded-lg shadow-lg">
             <div className="flex flex-wrap justify-between items-center mb-4 gap-4">
-              <h1 className="text-2xl font-bold">Solicitudes de Trabajo</h1>
+              
               <button
                 onClick={fetchSolicitudes}
                 className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

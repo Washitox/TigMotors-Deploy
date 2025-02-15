@@ -102,9 +102,7 @@ export default function EstatusTickets() {
         isDesktop ? "h-[500px]" : "h-96"
       } bg-gray-800 p-8 rounded-xl shadow-xl flex flex-col justify-center`}
     >
-      <h2 className="text-lg font-bold text-center text-white mb-4">
-        Estado de los Tickets
-      </h2>
+      
       {isLoading ? (
         <p className="text-center text-white">Cargando datos...</p>
       ) : (

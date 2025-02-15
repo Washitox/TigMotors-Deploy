@@ -136,7 +136,7 @@ function Trabajos() {
 
         <main className="p-4 lg:p-6 xl:p-8">
           <div className="bg-gray-800 p-4 lg:p-6 xl:p-8 rounded-lg shadow-lg">
-            <h1 className="text-lg lg:text-2xl font-bold mb-6">Trabajos</h1>
+            
 
             {errorMessage && <p className="text-red-500 mb-4">{errorMessage}</p>}
             {successMessage && <p className="text-green-500 mb-4">{successMessage}</p>}

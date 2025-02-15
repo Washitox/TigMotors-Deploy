@@ -1,17 +1,17 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaUser, FaBriefcase, FaClipboard, FaUserPlus, FaCog, FaFileAlt } from "react-icons/fa";
+import { FaBriefcase, FaClipboard, FaUserPlus, FaCog, FaFileAlt } from "react-icons/fa";
 
 export default function Sidebar() {
   const location = useLocation(); // Hook para obtener la ruta actual
 
   const menuItems = [
+    { name: "Perfil", path: "/admin/perfil", icon: <FaCog /> },
     { name: "Trabajos", path: "/admin/trabajos", icon: <FaBriefcase /> },
-    { name: "Usuarios", path: "/admin/usuarios", icon: <FaUser /> },
+    { name: "Usuarios", path: "/admin/usuarios", icon: <FaUserPlus /> },
     { name: "Solicitudes de Trabajo", path: "/admin/solicitudes-trabajo", icon: <FaClipboard /> },
     { name: "Solicitudes de Registro", path: "/admin/solicitudes-registro", icon: <FaFileAlt /> },
     { name: "Registrar Trabajo", path: "/admin/registrar-trabajo", icon: <FaBriefcase /> },
-    { name: "Perfil", path: "/admin/perfil", icon: <FaCog /> },
   ];
 
   return (

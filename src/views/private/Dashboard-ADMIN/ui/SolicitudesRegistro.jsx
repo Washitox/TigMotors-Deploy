@@ -139,16 +139,14 @@ export default function SolicitudesRegistro() {
         <HeaderAdmin />
         <main className="p-6">
           <div className="flex flex-wrap justify-between mb-6">
-            <div className="w-auto p-3 bg-gray-700 rounded-lg" style={{ height: "450px" }}>
-              <h2 className="text-lg font-bold mb-4 text-center">
-                Estatus de las Solicitudes
-              </h2>
+            <div className="w-auto p-3 bg-gray-700 rounded-lg" style={{ height: "410px" }}>
+              
               <Estatus />
             </div>
 
             <div className="flex-1 bg-gray-800 p-6 rounded-lg ml-4">
               <div className="flex justify-between items-center mb-4">
-                <h1 className="text-2xl font-bold">Solicitudes de Registro</h1>
+                
                 <button
                   onClick={fetchSolicitudes}
                   disabled={isFetching}

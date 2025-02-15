@@ -37,7 +37,7 @@ export default function TrabajosTig() {
       description: [
         "Verificación",
         "Diagnóstico",
-        "Fisuras en Bloc o Cabezotes",
+        "Fisuras en Blocks o Cabezotes",
       ],
     },
     {
@@ -64,7 +64,7 @@ export default function TrabajosTig() {
         "Colocación de Helicoides",
         "Colocación de Tintas",
         "Asesoría de sueldas",
-        "Limpieza de Bloc o Cabezotes",
+        "Limpieza de Blocks o Cabezotes",
         "Servicio de transporte de piezas (Sector norte bajo – Amazonas hasta Carapungo)",
       ],
     },

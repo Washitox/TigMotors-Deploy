@@ -119,8 +119,8 @@ function RegistrarTrabajo() {
       <div className="flex-1 flex flex-col">
         <HeaderAdmin />
         <main className="p-6">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl mx-auto flex flex-col justify-center min-h-[calc(100vh-120px)]">
-            <h1 className="text-3xl font-bold mb-6 text-center">Registrar Trabajo</h1>
+          <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl mx-auto flex flex-col justify-center min-h-[calc(100vh-1000px)]">
+            
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Mensajes */}
               {errorMessage && (
@@ -239,7 +239,7 @@ function RegistrarTrabajo() {
                       <FaSpinner className="animate-spin" /> Procesando...
                     </>
                   ) : (
-                    "Registrar Trabajo"
+                    "Enviar"
                   )}
                 </button>
               </div>

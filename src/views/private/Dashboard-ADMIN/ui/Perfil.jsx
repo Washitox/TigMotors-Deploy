@@ -77,10 +77,10 @@ function Perfil() {
           <div className="bg-gray-800 p-3 rounded-lg shadow-lg w-full max-w-5xl h-auto mx-auto">
               <h1 className="text-2xl font-bold mb-6 text-center">
                 {isMobile
-                  ? "Perfil - Móvil"
+                  ? "Estadisticas y datos - Móvil"
                   : isTablet
-                  ? "Perfil - Tablet"
-                  : "Perfil del Administrador"}
+                  ? "Estadisticas y datos - Tablet"
+                  : "Estadisticas y datos"}
               </h1>
 
 

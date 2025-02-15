@@ -6,15 +6,14 @@ export default function SidebarUser() {
   const location = useLocation(); // Hook para obtener la ruta actual
 
   const menuItems = [
+    { name: "Perfil", path: "/user/perfil", icon: <FaCog /> },
     { name: "Trabajos", path: "/user/trabajos", icon: <FaBriefcase /> },
     { name: "Comprobantes", path: "/user/comprobantes", icon: <FaFileInvoice /> },
-    { name: "Solicitudes para trabajo", path: "/user/solicitar-trabajo", icon: <FaClipboard /> },
-    { name: "Perfil", path: "/user/perfil", icon: <FaCog /> },
-    
+    { name: "Solicitudes para trabajo", path: "/user/solicitar-trabajo", icon: <FaClipboard /> },    
   ];
 
   return (
-    <aside className="flex min-h-full w-64 bg-gray-800   flex-col">
+    <aside className="flex min-h-full w-64 bg-gray-800 flex-col rounded-r-lg">
       <div className="p-4 text-center font-bold text-lg border-b border-gray-700 text-white">TigMotors User</div>
       <nav className="flex-1">
         <ul className="space-y-2 p-4">
